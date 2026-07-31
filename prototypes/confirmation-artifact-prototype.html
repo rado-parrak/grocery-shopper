@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--
+  THROWAWAY PROTOTYPE — not the Phase-2 production artifact.
+
+  This is a demonstration of the FOUND-02 pure response-collector contract
+  defined in project-knowledge/confirmation-protocol.md. It exists to prove
+  the contract is buildable, not to be reused as production code.
+
+  Contract demonstrated here:
+    - Declares NO artifact runtime capabilities (no mcp, no downloads, no storage).
+    - Issues NO external tool call, NO network request, NO fetch/XHR of any kind.
+    - All interaction is local DOM state only.
+    - The "confirmation" is only ever the human's own next chat message in the
+      real product — this page has no send-back mechanism, by design, and does
+      not simulate one. It only renders the proposal and a copyable summary.
+
+  See project-knowledge/confirmation-protocol.md for the full contract this
+  prototype implements.
+-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Confirm your grocery add — throwaway prototype</title>
+<style>
+  :root {
+    --ok: #1a7f37;
+    --warn: #9a6700;
+    --danger: #cf222e;
+    --border: #d0d7de;
+    --bg: #ffffff;
+    --bg-soft: #f6f8fa;
+    --text: #1f2328;
+    --text-muted: #57606a;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-soft);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    /* single column, no horizontal scroll, mobile-first */
+    overflow-x: hidden;
+  }
+  .card {
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  h1 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  .subtitle {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin: -8px 0 4px;
+  }
+  .item-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .item-row:last-of-type {
+    border-bottom: none;
+  }
+  .item-checkbox {
+    /* large tap target */
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    accent-color: var(--ok);
+  }
+  .item-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .item-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    white-space: normal;
+    word-break: break-word;
+  }
+  .item-price {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+  .item-name.unchecked, .item-price.unchecked {
+    text-decoration: line-through;
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+  .stepper {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+  .stepper button {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .stepper button:active {
+    background: var(--border);
+  }
+  .stepper input[type="number"] {
+    width: 40px;
+    height: 36px;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    -moz-appearance: textfield;
+  }
+  .totals {
+    background: var(--bg-soft);
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.9rem;
+  }
+  .totals .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .totals .running-total {
+    font-weight: 700;
+    font-size: 1.05rem;
+  }
+  .budget-line {
+    font-size: 0.82rem;
+  }
+  .budget-line.ok { color: var(--ok); }
+  .budget-line.warn { color: var(--warn); }
+  .budget-line.over { color: var(--danger); font-weight: 700; }
+  .summary-box {
+    background: var(--bg-soft);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .summary-box label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .summary-text {
+    width: 100%;
+    min-height: 90px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 0.82rem;
+    resize: none;
+    background: var(--bg);
+  }
+  .copy-btn {
+    margin-top: 8px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .copy-btn:active {
+    background: var(--bg-soft);
+  }
+  .note {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div>
+    <h1>Confirm your add</h1>
+    <div class="subtitle">Tap to include/exclude, adjust quantities, then reply in chat.</div>
+  </div>
+
+  <div id="items"></div>
+
+  <div class="totals">
+    <div class="row">
+      <span>Running total</span>
+      <span class="running-total" id="runningTotal">0 Kč</span>
+    </div>
+    <div class="budget-line" id="softLine"></div>
+    <div class="budget-line" id="hardLine"></div>
+  </div>
+
+  <div class="summary-box">
+    <label>Copyable final list</label>
+    <textarea class="summary-text" id="summaryText" readonly></textarea>
+    <button class="copy-btn" id="copyBtn" type="button">Copy list</button>
+  </div>
+
+  <div class="note">This card only collects your decision. Reply in chat to confirm — this page never writes to the basket itself.</div>
+</div>
+
+<script>
+  // ---------------------------------------------------------------------
+  // Hard-coded sample batch (3 items). Prices/qty are illustrative only.
+  // In the real product, this data would come from the skill's own
+  // resolution-cascade output for the current request.
+  // ---------------------------------------------------------------------
+  var state = {
+    items: [
+      { id: "milk",    name: "Mléko polotučné 1 l",        unitPrice: 24, qty: 2, checked: true },
+      { id: "rohliky", name: "Rohlík máslový 4 ks",         unitPrice: 32, qty: 1, checked: true },
+      { id: "bananas", name: "Banány, 1 kg",                unitPrice: 39, qty: 1, checked: true }
+    ],
+    cartBeforeTotal: 150, // illustrative pre-existing cart total, for the projected-total demo
+    softThreshold: 2000,
+    hardCap: 3000
+  };
+
+  var itemsEl = document.getElementById("items");
+  var runningTotalEl = document.getElementById("runningTotal");
+  var softLineEl = document.getElementById("softLine");
+  var hardLineEl = document.getElementById("hardLine");
+  var summaryTextEl = document.getElementById("summaryText");
+  var copyBtn = document.getElementById("copyBtn");
+
+  function currentAddTotal() {
+    return state.items.reduce(function (sum, item) {
+      return sum + (item.checked ? item.unitPrice * item.qty : 0);
+    }, 0);
+  }
+
+  function render() {
+    itemsEl.innerHTML = "";
+
+    state.items.forEach(function (item) {
+      var row = document.createElement("div");
+      row.className = "item-row";
+
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.className = "item-checkbox";
+      checkbox.checked = item.checked;
+      checkbox.setAttribute("aria-label", "Include " + item.name);
+      checkbox.addEventListener("change", function () {
+        item.checked = checkbox.checked;
+        render();
+      });
+
+      var info = document.createElement("div");
+      info.className = "item-info";
+
+      var nameEl = document.createElement("div");
+      nameEl.className = "item-name" + (item.checked ? "" : " unchecked");
+      nameEl.textContent = item.name;
+
+      var priceEl = document.createElement("div");
+      priceEl.className = "item-price" + (item.checked ? "" : " unchecked");
+      priceEl.textContent = item.unitPrice + " Kč / ks";
+
+      info.appendChild(nameEl);
+      info.appendChild(priceEl);
+
+      var stepper = document.createElement("div");
+      stepper.className = "stepper";
+
+      var minusBtn = document.createElement("button");
+      minusBtn.type = "button";
+      minusBtn.textContent = "−";
+      minusBtn.setAttribute("aria-label", "Decrease quantity of " + item.name);
+      minusBtn.addEventListener("click", function () {
+        if (item.qty > 0) item.qty -= 1;
+        render();
+      });
+
+      var qtyInput = document.createElement("input");
+      qtyInput.type = "number";
+      qtyInput.min = "0";
+      qtyInput.value = item.qty;
+      qtyInput.setAttribute("aria-label", "Quantity of " + item.name);
+      qtyInput.addEventListener("input", function () {
+        var v = parseInt(qtyInput.value, 10);
+        item.qty = isNaN(v) || v < 0 ? 0 : v;
+        render();
+      });
+
+      var plusBtn = document.createElement("button");
+      plusBtn.type = "button";
+      plusBtn.textContent = "+";
+      plusBtn.setAttribute("aria-label", "Increase quantity of " + item.name);
+      plusBtn.addEventListener("click", function () {
+        item.qty += 1;
+        render();
+      });
+
+      stepper.appendChild(minusBtn);
+      stepper.appendChild(qtyInput);
+      stepper.appendChild(plusBtn);
+
+      row.appendChild(checkbox);
+      row.appendChild(info);
+      row.appendChild(stepper);
+      itemsEl.appendChild(row);
+    });
+
+    var addTotal = currentAddTotal();
+    var projectedTotal = state.cartBeforeTotal + addTotal;
+
+    runningTotalEl.textContent = addTotal + " Kč (this add)";
+
+    softLineEl.textContent = "Soft threshold: " + state.softThreshold + " Kč — projected basket: " + projectedTotal + " Kč";
+    hardLineEl.textContent = "Hard cap: " + state.hardCap + " Kč (blocks writes over this)";
+
+    if (projectedTotal > state.hardCap) {
+      softLineEl.className = "budget-line over";
+      hardLineEl.className = "budget-line over";
+      hardLineEl.textContent += " — OVER CAP, this add would be refused";
+    } else if (projectedTotal >= state.softThreshold) {
+      softLineEl.className = "budget-line warn";
+      hardLineEl.className = "budget-line ok";
+    } else {
+      softLineEl.className = "budget-line ok";
+      hardLineEl.className = "budget-line ok";
+    }
+
+    // Copyable plain-text final list — local DOM state only, no send-back.
+    var lines = state.items
+      .filter(function (item) { return item.checked && item.qty > 0; })
+      .map(function (item) {
+        return item.qty + "x " + item.name + " - " + (item.unitPrice * item.qty) + " Kc";
+      });
+    lines.push("");
+    lines.push("Add total: " + addTotal + " Kc");
+    lines.push("Projected basket total: " + projectedTotal + " Kc");
+    summaryTextEl.value = lines.join("\n");
+  }
+
+  copyBtn.addEventListener("click", function () {
+    summaryTextEl.select();
+    // document.execCommand is deprecated but works offline/inert, with no
+    // network or clipboard-API permission prompt required for this demo.
+    try {
+      document.execCommand("copy");
+      copyBtn.textContent = "Copied!";
+      setTimeout(function () { copyBtn.textContent = "Copy list"; }, 1200);
+    } catch (e) {
+      // No-op fallback — this is a throwaway prototype, not production code.
+    }
+  });
+
+  render();
+</script>
+</body>
+</html>
