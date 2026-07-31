@@ -5,8 +5,8 @@ milestone_name: milestone
 current_phase: 1
 current_phase_name: Foundation & Shared Spine
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-07-31T16:38:40.759Z"
+stopped_at: PAUSED at 01-02 Task 2 human-verify checkpoint (blocking-human) — awaiting live Rohlík MCP round-trip results
+last_updated: "2026-07-31T16:44:30.848Z"
 progress:
   total_phases: 1
   completed_phases: 0
@@ -27,7 +27,7 @@ progress:
 
 - **Phase:** 1 (Foundation & Shared Spine) — EXECUTING
 - **Plan:** 2 of 3
-- **Status:** Ready to execute
+- **Status:** PAUSED at blocking-human checkpoint (Task 2 — live Rohlík MCP round-trip)
 - **Progress:** [███░░░░░░░] 33%
 
 ## Phase Map
@@ -78,16 +78,16 @@ progress:
 
 ### Blockers
 
-- None.
+- Plan 01-02 paused at blocking-human checkpoint: live Rohlík MCP round-trip (search -> cart_read -> add -> cart_read -> remove -> cart_read -> forced error -> favourites check) must be run by a human inside claude.ai with the OAuth connector attached; cannot be run from this repo/CI. Resume by pasting back the per-step observations.
 
 ## Session Continuity
 
-**Last session:** 2026-07-31T16:38:40.747Z
-**Stopped at:** Completed 01-01-PLAN.md
-**Resume file:** None
+**Last session:** 2026-07-31T16:44:30.831Z
+**Stopped at:** PAUSED at 01-02 Task 2 human-verify checkpoint (blocking-human) — awaiting live Rohlík MCP round-trip results
+**Resume file:** .planning/phases/01-foundation-shared-spine/01-02-PLAN.md
 
-- **Last action:** Roadmap and requirements traceability written (2026-07-31).
-- **Next action:** Plan Phase 1 (`/gsd-plan-phase 1`).
+- **Last action:** Authored 01-02's setup checklist, MCP round-trip protocol, and empty results template; paused at the blocking-human checkpoint (2026-07-31).
+- **Next action:** Human runs `spikes/project-setup-checklist.md` + `spikes/mcp-round-trip-protocol.md` inside claude.ai and pastes back raw observations to resume 01-02 Task 3.
 
 ---
 *State initialized: 2026-07-31*
