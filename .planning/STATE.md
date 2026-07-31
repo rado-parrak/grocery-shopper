@@ -92,8 +92,10 @@ progress:
   of corrected constraint language in PROJECT.md/CLAUDE.md.
 
 - **[Phase 1, FOUND-09, 2026-07-31] ⚠ REVISIT BEFORE PHASE 4 — writable state:** the household RAN
-  the two-device artifact-storage spike and it does **NOT work** (no confirmed cross-device
-  read-back) — a **tested NO-GO on artifact storage**. v1 writable state = Rohlík-native
+  the two-device artifact-storage spike. `window.storage` **exists** and same-device write+read-back
+  works, but the **cross-device read fails with a reproducible server-side error**
+  (`Internal server error while processing action`) — a **tested NO-GO on the cross-device path**.
+  v1 writable state = Rohlík-native
   (`get_all_user_favorites`/`get_typical_order`), which is confirmed working, so Phase 2 is
   unaffected. OPEN: household state Rohlík can't model (restock cadence, rejected-substitution
   history, explicit brand switches) has no working store; interim = hand-edited Project-file diffs.
@@ -161,7 +163,7 @@ pass/fail per checklist item to resume plan 02-03)
 - [Phase ?]: household-ruleset.md and budget.md placeholders left genuinely unfilled (no invented allergies/brand-prefs/budget amounts) pending plan 01-03
 - [Phase ?]: [Phase 1, 01-02] Live MCP round-trip found Rohlík connector exposes checkout/order/payment/claim tools -- contradicts PROJECT.md's 'not exposed, structurally guaranteed' claim; mitigated with a Forbidden-tools policy prohibition in mcp-degradation.md, flagged for household ratification in PROJECT.md/CLAUDE.md.
 - [Phase ?]: [Phase 1, 01-02] mcp-degradation.md's Observed tool surface grounded in real dated observations; favourites-equivalent tools (get_all_user_favorites, get_typical_order) confirmed present, seed-favourites.md bootstrap role now confirmed temporary.
-- [Phase ?]: [Phase 1, 01-03, 2026-07-31] Household delegated the writable-state decision (chose to proceed on Rohlik-native path rather than run the two-device artifact-storage spike). Recorded as provisional/human-revisable, dated 2026-07-31, resolving FOUND-09: writable state for v1 = Rohlik-native favourites/order-history + hand-edited Project-file diffs; artifact storage NOT used.
+- [Phase ?]: [Phase 1, 01-03, 2026-07-31] Writable-state decision resolving FOUND-09: writable state for v1 = Rohlik-native favourites/order-history + hand-edited Project-file diffs; artifact storage NOT used. The household RAN the two-device artifact-storage spike 2026-07-31 → NO-GO: `window.storage` exists and same-device write/read works, but the cross-device read fails with a reproducible server error. Revisit before Phase 4 only by re-running the spike and seeing the NO-GO reverse.
 - [Phase ?]: [Phase 1, 01-03, 2026-07-31] Ratified the checkout-exposure correction flagged in 01-02: PROJECT.md and .claude/CLAUDE.md's 'order submission not exposed via MCP -- structurally guaranteed' claim rewritten to 'policy-enforced hard prohibition' everywhere it appeared; the never-checks-out/never-pays requirement itself preserved and strengthened, not weakened.
 - [Phase ?]: [Phase 2, 02-01] Authored skills/quick-add/SKILL.md as a thin orchestrator + skills/quick-add/resolution-notes.md; tracer task verified end-to-end before expanding to multi-item/bilingual resolution and budget/substitution/degradation safety rails. No forbidden checkout/order/payment tool literal present.
 - [Phase ?]: Disjoint trigger vocabulary from quick-add: basket-review's description excludes add-item phrasing without literal 'add milk and bananas' collision, keeping the phase's negative-grep gate clean

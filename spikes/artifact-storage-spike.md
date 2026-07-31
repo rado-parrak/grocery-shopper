@@ -2,7 +2,7 @@
 
 **Implements:** FOUND-09 · D-08 (artifact-storage spike acceptance)
 
-**Status (2026-07-31): SKIPPED — superseded by a confirmed Rohlík-native writable-state path.**
+**Status (2026-07-31): RAN → NO-GO.** Step 0 (capability exists) and Step 1 (write + same-device read-back) passed; **Step 2 (cross-device read on Device B, same account) failed** with `Storage get failed: Internal server error while processing action`, reproducibly. Result recorded verbatim in `project-knowledge/writable-state-decision.md`. Re-runnable if the runtime's storage behaviour changes.
 The household delegated the writable-state decision rather than running this spike. Plan 01-02's
 live MCP round-trip confirmed `Rohlik:get_all_user_favorites` and `Rohlik:get_typical_order`
 already persist server-side on the one shared Rohlík account (inherently cross-device), which
