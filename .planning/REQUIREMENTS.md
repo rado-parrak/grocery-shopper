@@ -12,7 +12,7 @@ Requirements for initial release. Each maps to a roadmap phase (see Traceability
 - [x] **FOUND-01**: A single resolution-cascade document is the one source of truth every shopping skill references (never reimplemented per skill)
 - [x] **FOUND-02**: A single confirmation-protocol document defines the interactive confirmation-artifact contract used by every mutating skill
 - [x] **FOUND-03**: A single substitution-policy document governs all out-of-stock / unavailable handling
-- [ ] **FOUND-04**: A single MCP-degradation policy defines fallback behaviour for every Rohlík MCP call
+- [x] **FOUND-04**: A single MCP-degradation policy defines fallback behaviour for every Rohlík MCP call
 - [x] **FOUND-05**: A single audit-format spec defines what every basket add reports back
 - [x] **FOUND-06**: The household ruleset (quality rules, dislikes, allergies, brand prefs) is read at the start of every resolution
 - [x] **FOUND-07**: The budget config (soft threshold, hard cap) is loaded and applied on every confirmation
@@ -125,7 +125,7 @@ Each requirement maps to exactly one phase (granularity: coarse, 4 phases).
 | FOUND-01 | Phase 1 | Complete |
 | FOUND-02 | Phase 1 | Complete |
 | FOUND-03 | Phase 1 | Complete |
-| FOUND-04 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Complete |
 | FOUND-05 | Phase 1 | Complete |
 | FOUND-06 | Phase 1 | Complete |
 | FOUND-07 | Phase 1 | Complete |

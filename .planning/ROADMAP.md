@@ -35,11 +35,11 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
   3. A hand-editable seed-favourites file of pre-approved Rohlík product IDs is in place. [FOUND-08]
   4. The artifact-storage spike returns a documented go/no-go on cross-device writable state, gating the learned-state skills in Phase 4 (staples, preferences). [FOUND-09]
 
-**Plans**: 1/3 plans executed
+**Plans**: 2/3 plans executed (01-03 paused at blocking-human checkpoint)
 
 - [x] 01-01-PLAN.md — Author the shared spine: five contracts + three read-only config files + Walking-Skeleton + confirmation-artifact prototype [FOUND-01,02,03,05,06,07,08]
-- [ ] 01-02-PLAN.md — Prove the live Rohlík MCP surface: setup + probe protocol + human round-trip, grounded into mcp-degradation.md [FOUND-04]
-- [ ] 01-03-PLAN.md — Settle writable state: artifact-storage go/no-go spike + household personalisation [FOUND-09]
+- [x] 01-02-PLAN.md — Prove the live Rohlík MCP surface: setup + probe protocol + human round-trip, grounded into mcp-degradation.md [FOUND-04]
+- [ ] 01-03-PLAN.md — Settle writable state: artifact-storage go/no-go spike + household personalisation [FOUND-09] — PAUSED at blocking-human checkpoint
 
 ### Phase 2: Quick-Add & Basket-Review
 
@@ -93,7 +93,7 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Shared Spine | 1/3 | Paused (human checkpoints — 01-02, 01-03) |  |
+| 1. Foundation & Shared Spine | 2/3 | Paused (human checkpoint — 01-03) |  |
 | 2. Quick-Add & Basket-Review | 0/? | Not started | - |
 | 3. Recipe-to-Basket & Meal Planning | 0/? | Not started | - |
 | 4. Staples-Restock & Household Preferences | 0/? | Not started | - |
