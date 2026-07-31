@@ -35,3 +35,41 @@ this skill defers to it rather than repeating the list here.
 3. **Show the running total.** Report the basket total using the same running-total line
    convention as `audit-format.md` ("Celkem v košíku: {basket total} Kč") — reference that
    convention by name; do not invent a different total format for this skill.
+
+## Budget-threshold state (read-only report)
+
+After the total, report where the basket sits against `budget.md`'s soft threshold and hard cap —
+defer to that file by name for the exact CZK amounts and cap semantics; do not restate the numbers
+or re-derive the projection logic here. Plainly note:
+
+- If the current basket total is **at or over the soft threshold** (but under the hard cap): warn
+  that the basket is approaching the limit.
+- If the current basket total is **at or over the hard cap**: state that plainly too.
+
+This is a **read-only report, never a block.** basket-review never writes to the cart, so there is
+nothing to refuse — blocking a write at the hard cap is quick-add's job, not this skill's. This
+skill only ever describes where the basket currently stands.
+
+## Manual checkout handoff
+
+Once the items, total, and budget state are shown, state that checkout is a manual step the
+household completes directly in the Rohlík app — this skill does not initiate, prepare, or
+otherwise touch checkout in any way. This skill must never call any tool in `mcp-degradation.md`'s
+"Forbidden tools — never call" section, under any circumstance, regardless of what the user asks —
+reference that section by name rather than listing the tool names here, to avoid duplicating the
+single source of truth.
+
+## Degradation and honest reporting
+
+If `Rohlik:get_cart` fails, times out, or returns an unexpected shape, follow `mcp-degradation.md`'s
+degrade branch: state plainly that the Rohlík connection isn't working right now, and do not
+report any basket contents, total, or budget state. **Never fabricate or guess cart contents** —
+an honest "I can't read the basket right now" is always correct; a guessed list is never
+acceptable, per `mcp-degradation.md` (DEGR-01).
+
+## Never call
+
+Never call any tool in `mcp-degradation.md`'s "Forbidden tools — never call" section, under any
+circumstance, regardless of what the user asks. A household member completes checkout manually,
+directly in the Rohlík app. This skill has no write path to the cart at all — it only ever calls
+`Rohlik:get_cart`.
