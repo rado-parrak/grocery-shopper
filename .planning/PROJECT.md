@@ -84,10 +84,11 @@ vague item into a correct, ruleset-compliant Rohlík product must work.
 |----------|-----------|---------|
 | One shared Rohlík account | The whole design assumes a single shared basket as household state; two accounts would break it | ✓ Good |
 | One personal Claude account shared on two devices (not Team/Enterprise, not two accounts) | Sidesteps the Team/Enterprise requirement for a shared Project; a single account gives one natural scope for shared writable state and one preloaded skill set | ✓ Good |
-| Writable state: lean on Rohlík first, artifact storage for the rest | Project files are read-only; Rohlík already persists favourites + order history (source of truth); artifact persistent storage (single-account scope) holds only what Rohlík can't | — Pending (artifact-storage spike) |
-| Resolution cascade is one shared internal, not per-skill | Brief mandates a single source of truth used by every shopping skill | — Pending |
-| Confirmation is a response-collector artifact that never calls the MCP | Keeps the mutate step explicit: agent reads back the final list and confirms verbally before any basket write | — Pending |
-| First milestone = quick-add end-to-end | Proves the cascade + confirmation artifact + a real basket write; every other skill is a variation on that spine | — Pending |
+| Writable state: Rohlík-native primary; artifact storage NOT used | Household tested the two-device artifact-storage spike 2026-07-31 → **NO-GO (does not work)**. Rohlík-native favourites/order-history (`get_all_user_favorites`/`get_typical_order`) confirmed working; hand-edited Project-file diffs for what Rohlík can't model | ⚠️ Revisit before Phase 4 (no store for Rohlík-unmodellable state) |
+| Resolution cascade is one shared internal, not per-skill | Brief mandates a single source of truth used by every shopping skill | ✓ Good — authored in Phase 1 (`project-knowledge/resolution-cascade.md`), consumed by Phase 2 skills |
+| Confirmation is a response-collector artifact that never calls the MCP | Keeps the mutate step explicit: agent reads back the final list and confirms verbally before any basket write | ✓ Good — contract + prototype in Phase 1; wired into quick-add in Phase 2 |
+| Never-checks-out is policy-enforced, not platform-structural | Live round-trip (2026-07-31) found the connector DOES expose checkout/payment tools; mitigated by the forbidden-tools prohibition in `mcp-degradation.md` | ✓ Good (corrected + ratified) |
+| First milestone = quick-add end-to-end | Proves the cascade + confirmation artifact + a real basket write; every other skill is a variation on that spine | — Authored (Phase 2); awaiting live-phone UAT (UX-04) |
 
 ## Evolution
 
