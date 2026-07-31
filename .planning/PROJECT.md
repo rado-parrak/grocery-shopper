@@ -7,8 +7,13 @@ A set of Claude Skills, living in one shared Claude Project, that lets two peopl
 The assistant resolves vague human requests ("add milk", "we need stuff for
 Thursday's dinner") into specific Rohlík.cz products via the official Rohlík MCP,
 respecting a household quality ruleset, and pushes them to the shared Rohlík
-basket. Checkout and payment stay manual (and are platform-enforced — order
-submission is not exposed over MCP).
+basket. Checkout and payment stay manual — this is a policy-enforced hard
+prohibition (the assistant is instructed to never call any checkout,
+order-submission, or payment tool; see `project-knowledge/mcp-degradation.md`
+"Forbidden tools"), not a platform-structural guarantee. The connected Rohlík
+MCP connector does, in fact, expose checkout/order/payment tools (confirmed by
+a live round-trip, 2026-07-31) — the never-checks-out/never-pays requirement
+holds entirely on instruction-level discipline.
 
 ## Core Value
 
@@ -40,7 +45,7 @@ vague item into a correct, ruleset-compliant Rohlík product must work.
 
 ### Out of Scope
 
-- Checkout, payment, delivery-slot selection — platform-enforced manual step; a deliberate safety boundary
+- Checkout, payment, delivery-slot selection — policy-enforced manual step (the assistant is instructed to never call any checkout/order-submission/payment tool; not a platform-structural guarantee); a deliberate safety boundary
 - Multi-retailer support — v1 is Rohlík-only; the whole design assumes one shared Rohlík basket
 - Nutrition / calorie / macro tracking — not the product's job
 - Inventory / pantry tracking (what's in the fridge) — out of scope for v1
@@ -65,7 +70,7 @@ vague item into a correct, ruleset-compliant Rohlík product must work.
 
 ## Constraints
 
-- **Platform**: Order submission not exposed via MCP — checkout/payment always manual. Structurally guarantees the "never checks out, never pays" requirement.
+- **Policy**: Never checks out, never pays — a policy-enforced hard prohibition, not a platform-structural guarantee. The Rohlík MCP connector DOES expose checkout/order/payment tools (confirmed by the live round-trip, 2026-07-31); the assistant is instructed to never call any of them, under any circumstance (see `project-knowledge/mcp-degradation.md` "Forbidden tools — never call").
 - **Platform**: Rohlík MCP is experimental and may change or disappear without notice — every skill must degrade to a plain manual list rather than fail silently or hallucinate a successful add.
 - **Data**: Claude Project files are read-only to the agent — writable state (learned favourites, staples, recipe repertoire) cannot live there.
 - **Accounts**: One shared Rohlík account (one shared basket — the design's central assumption). One personal Claude account shared across two devices (no Team/Enterprise Project needed; single account = single natural scope for shared writable state).
