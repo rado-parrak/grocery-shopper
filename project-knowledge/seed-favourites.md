@@ -45,16 +45,26 @@ it can ever be proposed or added — being on this list does not exempt an item 
 household-ruleset.md §A ever changes such that a previously-favourited item now violates a hard
 constraint, that favourite must be treated as any other eliminated candidate.
 
-## Bootstrap vs. steady-state (temporary role)
+## Bootstrap vs. steady-state (CONFIRMED temporary — resolved 2026-07-31)
 
-This file's role is explicitly **temporary/bootstrap**: seed it now so the cascade has *something*
-confident to fall back to before any skill is built. Once plan 01-02's live round-trip confirms
-whether the official Rohlík MCP exposes a favourites/order-history-equivalent tool, that Rohlík-
-native source becomes the steady-state favourites signal (it's already durable, shared across the
-one household account, and requires no new infrastructure — see STACK.md's writable-state
-analysis). This file remains useful as a hand-curated override/supplement even after that —
-Rohlík-native favourites is populated by the retailer's own purchase-history logic, not directly
-controllable by a skill the way a household might want to *deliberately* pin a specific product.
+This file's role is explicitly **temporary/bootstrap**. Plan 01-02's live MCP round-trip
+(2026-07-31) **confirmed** the official Rohlík MCP exposes two favourites/order-history-equivalent
+tools: `Rohlik:get_all_user_favorites` (28 items observed live) and `Rohlik:get_typical_order`
+(order-history-derived `frequent_items[]`) — see `mcp-degradation.md`'s "Observed tool surface"
+section. This is no longer a theoretical possibility pending a check; the Rohlík-native source
+exists and is populated today, and becomes the steady-state favourites signal (durable, shared
+across the one household account, no new infrastructure — see STACK.md's writable-state analysis).
+This file remains useful as a hand-curated override/supplement even so — Rohlík-native favourites
+is populated by the retailer's own purchase-history logic, not directly controllable by a skill the
+way a household might want to *deliberately* pin a specific product.
+
+**Candidate matches from the live favourites/order-history data** (recorded in
+`spikes/mcp-round-trip-results.md`, NOT auto-written into the placeholders below — the household
+must review and confirm before replacing any `⚠ FILL`):
+- Milk → `1443104` (Miil BIO Čerstvé mléko plnotučné 3,6 %) — in both favourites and frequent items
+- Eggs → `1316385` (Schubert BIO Natur vejce M–L) or `1466294` (Pohodová vejce z volného výběhu) — both in favourites
+- Rohlíky → not in favourites; `1346771` (Antonínovo pekařství Karlínský rohlík) is a frequent-order candidate
+- Bananas → not in favourites; `1349785` (Banán Chiquita 1 ks) is a frequent-order candidate
 
 ## Cross-references
 
