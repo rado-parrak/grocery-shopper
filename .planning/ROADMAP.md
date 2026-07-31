@@ -32,7 +32,10 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
   2. The household ruleset loads at the start of every resolution and the budget config (soft threshold + hard cap) loads on every confirmation, both hand-editable. [FOUND-06, FOUND-07]
   3. A hand-editable seed-favourites file of pre-approved Rohlík product IDs is in place. [FOUND-08]
   4. The artifact-storage spike returns a documented go/no-go on cross-device writable state, gating the learned-state skills in Phase 4 (staples, preferences). [FOUND-09]
-**Plans**: TBD
+**Plans**: 3 plans
+- [ ] 01-01-PLAN.md — Author the shared spine: five contracts + three read-only config files + Walking-Skeleton + confirmation-artifact prototype [FOUND-01,02,03,05,06,07,08]
+- [ ] 01-02-PLAN.md — Prove the live Rohlík MCP surface: setup + probe protocol + human round-trip, grounded into mcp-degradation.md [FOUND-04]
+- [ ] 01-03-PLAN.md — Settle writable state: artifact-storage go/no-go spike + household personalisation [FOUND-09]
 
 ### Phase 2: Quick-Add & Basket-Review
 **Goal**: The first vertical slice proves the entire spine end-to-end — "add milk and bananas" (Czech or English) becomes the *right* Rohlík products in the shared basket in ≤3 turns via an interactive confirmation, with idempotent writes, graceful degradation, budget guardrails, and a Czech audit — and "what's in the basket" reads the live cart back with its running total and budget state.
@@ -77,7 +80,7 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Shared Spine | 0/? | Not started | - |
+| 1. Foundation & Shared Spine | 0/3 | Planned | - |
 | 2. Quick-Add & Basket-Review | 0/? | Not started | - |
 | 3. Recipe-to-Basket & Meal Planning | 0/? | Not started | - |
 | 4. Staples-Restock & Household Preferences | 0/? | Not started | - |
