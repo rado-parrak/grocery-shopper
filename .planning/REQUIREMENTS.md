@@ -118,30 +118,62 @@ Explicitly excluded. Documented to prevent scope creep.
 
 ## Traceability
 
-Populated during roadmap creation (granularity: coarse). Each requirement maps to exactly one phase.
+Each requirement maps to exactly one phase (granularity: coarse, 4 phases).
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01…09 | TBD | Pending |
-| CASC-01…06 | TBD | Pending |
-| CONF-01…05 | TBD | Pending |
-| BUDG-01…03 | TBD | Pending |
-| SUBS-01 | TBD | Pending |
-| DEGR-01…02 | TBD | Pending |
-| AUDT-01 | TBD | Pending |
-| UX-01…04 | TBD | Pending |
-| QADD-01…02 | TBD | Pending |
-| REVW-01…02 | TBD | Pending |
-| STPL-01…02 | TBD | Pending |
-| RCPE-01…03 | TBD | Pending |
-| MEAL-01…02 | TBD | Pending |
-| PREF-01…02 | TBD | Pending |
+| FOUND-01 | Phase 1 | Pending |
+| FOUND-02 | Phase 1 | Pending |
+| FOUND-03 | Phase 1 | Pending |
+| FOUND-04 | Phase 1 | Pending |
+| FOUND-05 | Phase 1 | Pending |
+| FOUND-06 | Phase 1 | Pending |
+| FOUND-07 | Phase 1 | Pending |
+| FOUND-08 | Phase 1 | Pending |
+| FOUND-09 | Phase 1 | Pending |
+| CASC-01 | Phase 2 | Pending |
+| CASC-02 | Phase 2 | Pending |
+| CASC-03 | Phase 2 | Pending |
+| CASC-04 | Phase 2 | Pending |
+| CASC-05 | Phase 2 | Pending |
+| CASC-06 | Phase 2 | Pending |
+| CONF-01 | Phase 2 | Pending |
+| CONF-02 | Phase 2 | Pending |
+| CONF-03 | Phase 2 | Pending |
+| CONF-04 | Phase 2 | Pending |
+| CONF-05 | Phase 2 | Pending |
+| BUDG-01 | Phase 2 | Pending |
+| BUDG-02 | Phase 2 | Pending |
+| BUDG-03 | Phase 2 | Pending |
+| SUBS-01 | Phase 2 | Pending |
+| DEGR-01 | Phase 2 | Pending |
+| DEGR-02 | Phase 2 | Pending |
+| AUDT-01 | Phase 2 | Pending |
+| UX-01 | Phase 2 | Pending |
+| UX-02 | Phase 2 | Pending |
+| UX-03 | Phase 2 | Pending |
+| UX-04 | Phase 2 | Pending |
+| QADD-01 | Phase 2 | Pending |
+| QADD-02 | Phase 2 | Pending |
+| REVW-01 | Phase 2 | Pending |
+| REVW-02 | Phase 2 | Pending |
+| RCPE-01 | Phase 3 | Pending |
+| RCPE-02 | Phase 3 | Pending |
+| RCPE-03 | Phase 3 | Pending |
+| MEAL-01 | Phase 3 | Pending |
+| MEAL-02 | Phase 3 | Pending |
+| STPL-01 | Phase 4 | Pending |
+| STPL-02 | Phase 4 | Pending |
+| PREF-01 | Phase 4 | Pending |
+| PREF-02 | Phase 4 | Pending |
 
 **Coverage:**
 - v1 requirements: 44 total
-- Mapped to phases: 0 (roadmapper to populate)
-- Unmapped: 44 ⚠️
+- Mapped to phases: 44 ✓
+- Unmapped: 0
+
+**Per-phase counts:** Phase 1 = 9 · Phase 2 = 26 · Phase 3 = 5 · Phase 4 = 4 (total 44)
 
 ---
 *Requirements defined: 2026-07-31*
-*Last updated: 2026-07-31 after initial definition*
+*Last updated: 2026-07-31 after roadmap creation (traceability populated)*
