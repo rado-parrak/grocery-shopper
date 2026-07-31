@@ -15,7 +15,7 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
 
 ## Phases
 
-- [ ] **Phase 1: Foundation & Shared Spine** - Author the five shared-internal contracts + read-only config, prove the MCP round-trip, and settle the writable-state go/no-go
+- [x] **Phase 1: Foundation & Shared Spine** - Author the five shared-internal contracts + read-only config, prove the MCP round-trip, and settle the writable-state go/no-go
 - [ ] **Phase 2: Quick-Add & Basket-Review** - First vertical slice: "add milk and bananas" reaches the shared basket in ≤3 turns; "what's in the basket" reads it back with budget state
 - [ ] **Phase 3: Recipe-to-Basket & Meal Planning** - Recipes and weekly meal plans from trusted sources become confirmed, ruleset-resolved baskets
 - [ ] **Phase 4: Staples-Restock & Household Preferences** - Learned staples and evolving preferences, always proposed for approval and routed to the right writable state
@@ -35,11 +35,11 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
   3. A hand-editable seed-favourites file of pre-approved Rohlík product IDs is in place. [FOUND-08]
   4. The artifact-storage spike returns a documented go/no-go on cross-device writable state, gating the learned-state skills in Phase 4 (staples, preferences). [FOUND-09]
 
-**Plans**: 2/3 plans executed (01-03 paused at blocking-human checkpoint)
+**Plans**: 3/3 plans executed
 
 - [x] 01-01-PLAN.md — Author the shared spine: five contracts + three read-only config files + Walking-Skeleton + confirmation-artifact prototype [FOUND-01,02,03,05,06,07,08]
 - [x] 01-02-PLAN.md — Prove the live Rohlík MCP surface: setup + probe protocol + human round-trip, grounded into mcp-degradation.md [FOUND-04]
-- [ ] 01-03-PLAN.md — Settle writable state: artifact-storage go/no-go spike + household personalisation [FOUND-09] — PAUSED at blocking-human checkpoint
+- [x] 01-03-PLAN.md — Settle writable state: artifact-storage go/no-go spike + household personalisation [FOUND-09] — resolved by household-delegated decision (provisional/human-revisable; spike skipped, superseded by confirmed Rohlík-native path); checkout-constraint correction ratified in PROJECT.md/CLAUDE.md
 
 ### Phase 2: Quick-Add & Basket-Review
 
@@ -93,7 +93,7 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Shared Spine | 2/3 | Paused (human checkpoint — 01-03) |  |
+| 1. Foundation & Shared Spine | 3/3 | Complete | 2026-07-31 |
 | 2. Quick-Add & Basket-Review | 0/? | Not started | - |
 | 3. Recipe-to-Basket & Meal Planning | 0/? | Not started | - |
 | 4. Staples-Restock & Household Preferences | 0/? | Not started | - |

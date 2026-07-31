@@ -17,7 +17,7 @@ Requirements for initial release. Each maps to a roadmap phase (see Traceability
 - [x] **FOUND-06**: The household ruleset (quality rules, dislikes, allergies, brand prefs) is read at the start of every resolution
 - [x] **FOUND-07**: The budget config (soft threshold, hard cap) is loaded and applied on every confirmation
 - [x] **FOUND-08**: A seed-favourites file provides hand-editable pre-approved product IDs
-- [ ] **FOUND-09**: An artifact-storage spike determines whether agent-writable state persists across devices (go/no-go gate for learned-state features)
+- [x] **FOUND-09**: An artifact-storage spike determines whether agent-writable state persists across devices (go/no-go gate for learned-state features)
 
 ### Resolution Cascade
 
@@ -130,7 +130,7 @@ Each requirement maps to exactly one phase (granularity: coarse, 4 phases).
 | FOUND-06 | Phase 1 | Complete |
 | FOUND-07 | Phase 1 | Complete |
 | FOUND-08 | Phase 1 | Complete |
-| FOUND-09 | Phase 1 | Pending |
+| FOUND-09 | Phase 1 | Complete |
 | CASC-01 | Phase 2 | Pending |
 | CASC-02 | Phase 2 | Pending |
 | CASC-03 | Phase 2 | Pending |

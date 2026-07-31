@@ -5,13 +5,13 @@ milestone_name: milestone
 current_phase: 1
 current_phase_name: Foundation & Shared Spine
 status: executing
-stopped_at: Completed 01-02-PLAN.md (MCP round-trip transcribed, mcp-degradation.md grounded, checkout-exposure prohibition added). Still PAUSED at 01-03 Task 2 (blocking-human).
-last_updated: "2026-07-31T19:26:03.260Z"
+stopped_at: Completed 01-03-PLAN.md (writable-state decision recorded provisional/human-revisable, resolving FOUND-09; checkout-constraint correction ratified in PROJECT.md/CLAUDE.md). Phase 1 complete (3/3 plans).
+last_updated: "2026-07-31T19:38:42.384Z"
 progress:
   total_phases: 1
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
+  completed_plans: 3
 ---
 
 # Project State: Household Grocery Assistant (Rohlík)
@@ -25,23 +25,23 @@ progress:
 
 ## Current Position
 
-- **Phase:** 1 (Foundation & Shared Spine) — EXECUTING
-- **Plan:** 2 of 3 (01-02) COMPLETE; 3 of 3 (01-03) still paused
-- **Status:** 01-02 complete. PAUSED at 01-03 Task 2 (blocking-human checkpoint) — two-device artifact-storage spike + household ⚠ FILL values
-- **Progress:** [██████░░░░] 67%
+- **Phase:** 1 (Foundation & Shared Spine) — COMPLETE (3/3 plans)
+- **Plan:** 3 of 3 (01-03) COMPLETE — writable-state decision recorded (provisional/human-revisable, resolving FOUND-09), checkout-constraint correction ratified in PROJECT.md/CLAUDE.md
+- **Status:** Phase 1 complete. Ready to advance to Phase 2 (Quick-Add & Basket-Review).
+- **Progress:** [██████████] 100%
 
 ## Phase Map
 
 | Phase | Name | Depends on | Status |
 |-------|------|------------|--------|
-| 1 | Foundation & Shared Spine | — | Not started |
+| 1 | Foundation & Shared Spine | — | Complete |
 | 2 | Quick-Add & Basket-Review | Phase 1 | Not started |
 | 3 | Recipe-to-Basket & Meal Planning | Phase 2 | Not started |
 | 4 | Staples-Restock & Household Preferences | Phase 2, Phase 1 (FOUND-09), Phase 3 | Not started |
 
 ## Performance Metrics
 
-- Phases complete: 0/4
+- Phases complete: 1/4
 - Requirements mapped: 44/44
 - Requirements validated (shipped): 0/44
 
@@ -52,6 +52,7 @@ progress:
 | Phase 01 P01 | 15min | 3 tasks | 9 files |
 | Phase 01 P02 | 15min | 3 tasks | 5 files |
 | Phase 01 P03 (partial — Task 1 only) | 4min | 1 task | 2 files |
+| Phase 01 P03 | 12min | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -61,14 +62,14 @@ progress:
 - Idempotent adds: read the cart before writing, never duplicate.
 - Graceful degradation: never fake a successful add; fall back to a plain manual list.
 - Budget hard cap blocks additions that would exceed it.
-- The assistant never checks out and never pays — **CORRECTED 2026-07-31 (01-02 live round-trip):
-  this is POLICY-enforced, not platform-enforced.** The connected Rohlík MCP connector DOES expose
-  checkout/timeslot/payment-method/order-management/claim tools (`submit_checkout`,
-  `get_checkout`, `reserve_timeslot`, `cancel_order`, `submit_claim`, etc. — full list in
-  `project-knowledge/mcp-degradation.md`'s "Forbidden tools — never call" section). Every skill's
-  own instructions must never call any of these tools, under any circumstance. **Needs human
-  ratification in PROJECT.md/CLAUDE.md**, which currently states this guarantee is
-  platform-structural — that claim is now known to be inaccurate.
+- The assistant never checks out and never pays — **CORRECTED 2026-07-31 (01-02 live round-trip),
+  RATIFIED 2026-07-31 (01-03): this is POLICY-enforced, not platform-enforced.** The connected
+  Rohlík MCP connector DOES expose checkout/timeslot/payment-method/order-management/claim tools
+  (`submit_checkout`, `get_checkout`, `reserve_timeslot`, `cancel_order`, `submit_claim`, etc. —
+  full list in `project-knowledge/mcp-degradation.md`'s "Forbidden tools — never call" section).
+  Every skill's own instructions must never call any of these tools, under any circumstance.
+  PROJECT.md and .claude/CLAUDE.md now consistently state this guarantee is policy-enforced, not
+  platform-structural.
 
 ### Key Decisions
 
@@ -96,24 +97,26 @@ progress:
 
 ### Open Gates / Todos
 
-- **FOUND-09 artifact-storage spike (Phase 1):** go/no-go on cross-device writable state — gates Phase 4 (staples, preferences).
+- ~~**FOUND-09 artifact-storage spike (Phase 1):** go/no-go on cross-device writable state — gates Phase 4 (staples, preferences).~~ RESOLVED (01-03, 2026-07-31, provisional/human-revisable) — see `project-knowledge/writable-state-decision.md`. Household delegated the decision; writable state = Rohlík-native favourites/order-history + hand-edited Project-file diffs; artifact storage NOT used. Revisit before Phase 4 if reopened.
 - ~~**MCP tool inventory (Phase 1):** verify actual tool names, parameters, error contract (official docs inaccessible).~~ DONE (01-02, 2026-07-31) — see mcp-degradation.md's Observed tool surface.
-- **PROJECT.md/CLAUDE.md ratification (Phase 1, new — 01-02):** the "order submission not exposed via MCP, structurally guaranteed" constraint is factually inaccurate per the live round-trip; household must ratify corrected, policy-enforced language.
+- ~~**PROJECT.md/CLAUDE.md ratification (Phase 1, new — 01-02):** the "order submission not exposed via MCP, structurally guaranteed" constraint is factually inaccurate per the live round-trip; household must ratify corrected, policy-enforced language.~~ DONE (01-03, 2026-07-31) — all instances in PROJECT.md and .claude/CLAUDE.md rewritten to policy-enforced language.
+- **Household ⚠ FILL personalisation (non-blocking, Phase 1 carryover):** `household-ruleset.md` §A/§B and `budget.md`'s allergy/dislike/brand-pref/budget placeholders remain unfilled — must be completed before the first real shop, but do not block Phase 2+ planning.
 - **Bilingual/diacritic edge cases (Phase 1/2):** test code-switched Czech/English input on a real device.
 - **Turn-economy UAT (Phase 2 onward):** measure ≤3-turn quick-add path.
 
 ### Blockers
 
-- Plan 01-03 paused at blocking-human checkpoint: (A) the artifact-storage cross-device spike (Step 0 existence check -> Device-A write -> Device-B read-back, or fast NO-GO if no storage capability exists) must be run by a human on two physical phones signed into the shared Claude account; (B) the household's private ⚠ FILL values (allergies, dislikes/never-buy, brand preferences, budget soft/hard amounts) must come from the household directly. Neither is producible from this repo/CI. Resume by pasting back (A) the spike outcome and (B) the ⚠ FILL values or "fill later", then confirming the Task 3 writable-state decision.
+None. Phase 1 is complete (3/3 plans). The household ⚠ FILL personalisation to-do above is
+tracked but non-blocking for Phase 2+ planning.
 
 ## Session Continuity
 
-**Last session:** 2026-07-31T19:26:03.246Z
-**Stopped at:** Completed 01-02-PLAN.md (MCP round-trip transcribed, mcp-degradation.md grounded, checkout-exposure prohibition added). Still PAUSED at 01-03 Task 2 (blocking-human).
-**Resume file:** .planning/phases/01-foundation-shared-spine/01-03-PLAN.md
+**Last session:** 2026-07-31T19:38:42.363Z
+**Stopped at:** Completed 01-03-PLAN.md (writable-state decision recorded provisional/human-revisable, resolving FOUND-09; checkout-constraint correction ratified in PROJECT.md/CLAUDE.md). Phase 1 complete (3/3 plans).
+**Resume file:** None
 
-- **Last action:** Transcribed the human's live Rohlík MCP round-trip into `spikes/mcp-round-trip-results.md`, populated `mcp-degradation.md`'s Observed tool surface table, added the "Forbidden tools — never call" section for the newly-discovered checkout/order/payment tool exposure, updated `seed-favourites.md`'s bootstrap note, completed FOUND-04, and marked plan 01-02 COMPLETE (2026-07-31).
-- **Next action:** Human runs `spikes/artifact-storage-spike.md` (01-03) inside claude.ai on two physical phones, and pastes back the spike outcome plus the household's ⚠ FILL values (or "fill later") to resume plan 01-03. Separately, the household should review and ratify the checkout-exposure finding in PROJECT.md/CLAUDE.md (currently states the never-checks-out guarantee is platform-structural; live evidence shows it must be policy-enforced instead).
+- **Last action:** Recorded the provisional/human-revisable writable-state decision in `project-knowledge/writable-state-decision.md` (resolving FOUND-09), marked the two-device spike SKIPPED/superseded in `spikes/artifact-storage-spike.md`, and corrected the checkout-constraint claim from platform-structural to policy-enforced everywhere it appeared in `.planning/PROJECT.md` and `.claude/CLAUDE.md`. Plan 01-03 and Phase 1 (3/3 plans) marked COMPLETE (2026-07-31).
+- **Next action:** Advance to Phase 2 (Quick-Add & Basket-Review) via `/gsd-plan-phase` or the standard GSD phase workflow. Separately, the household should fill `household-ruleset.md`/`budget.md`'s ⚠ FILL placeholders before the first real shop (non-blocking to-do).
 
 ---
 *State initialized: 2026-07-31*
@@ -125,3 +128,5 @@ progress:
 - [Phase ?]: household-ruleset.md and budget.md placeholders left genuinely unfilled (no invented allergies/brand-prefs/budget amounts) pending plan 01-03
 - [Phase ?]: [Phase 1, 01-02] Live MCP round-trip found Rohlík connector exposes checkout/order/payment/claim tools -- contradicts PROJECT.md's 'not exposed, structurally guaranteed' claim; mitigated with a Forbidden-tools policy prohibition in mcp-degradation.md, flagged for household ratification in PROJECT.md/CLAUDE.md.
 - [Phase ?]: [Phase 1, 01-02] mcp-degradation.md's Observed tool surface grounded in real dated observations; favourites-equivalent tools (get_all_user_favorites, get_typical_order) confirmed present, seed-favourites.md bootstrap role now confirmed temporary.
+- [Phase ?]: [Phase 1, 01-03, 2026-07-31] Household delegated the writable-state decision (chose to proceed on Rohlik-native path rather than run the two-device artifact-storage spike). Recorded as provisional/human-revisable, dated 2026-07-31, resolving FOUND-09: writable state for v1 = Rohlik-native favourites/order-history + hand-edited Project-file diffs; artifact storage NOT used.
+- [Phase ?]: [Phase 1, 01-03, 2026-07-31] Ratified the checkout-exposure correction flagged in 01-02: PROJECT.md and .claude/CLAUDE.md's 'order submission not exposed via MCP -- structurally guaranteed' claim rewritten to 'policy-enforced hard prohibition' everywhere it appeared; the never-checks-out/never-pays requirement itself preserved and strengthened, not weakened.

@@ -2,176 +2,199 @@
 phase: 01-foundation-shared-spine
 plan: 03
 subsystem: infra
-tags: [artifacts, storage-capability, spike, project-knowledge, writable-state]
+tags: [artifacts, storage-capability, spike, project-knowledge, writable-state, checkout-correction]
 
 # Dependency graph
 requires:
   - phase: 01-foundation-shared-spine (01-01)
     provides: the five shared-internal contracts and the household-ruleset.md/budget.md config files this plan personalises
+  - phase: 01-foundation-shared-spine (01-02)
+    provides: the live MCP round-trip finding that Rohlík favourites/order-history persist cross-device, and the checkout-exposure correction that needed ratification in PROJECT.md/CLAUDE.md
 provides:
-  - spikes/artifact-storage-spike.md — Step-0 existence check first (no storage capability assumed), then Device-A write / Device-B read-back protocol, single-device case flagged INCOMPLETE
-  - project-knowledge/writable-state-decision.md — GO/NO-GO/INCOMPLETE scaffold, decision left UNRESOLVED pending the human spike
-affects: [phase-4 (FOUND-09 gate — staples-restock, household-prefs, any learned-state skill binds to this decision)]
+  - spikes/artifact-storage-spike.md — Step-0 existence check first, then Device-A write / Device-B read-back protocol; marked SKIPPED (superseded), not fabricated as run
+  - project-knowledge/writable-state-decision.md — RESOLVED (provisional, human-revisable): writable state = Rohlík-native + hand-edited Project-file diffs; artifact storage NOT used in v1
+  - .planning/PROJECT.md and .claude/CLAUDE.md — checkout-constraint language corrected from platform-structural to policy-enforced, requirement preserved
+affects: [phase-4 (FOUND-09 gate — staples-restock, household-prefs, any learned-state skill binds to the Rohlík-native + hand-edited-diffs path)]
 
 actuals:
-  tokens: 5300
-  tasks: 1
-  commits: 1
+  tokens: 3500
+  tasks: 2
+  commits: 3
 
 tech-stack:
   added: []
   patterns:
-    - "Human-executed, checkpoint-gated spike protocol authored by the agent, run by the household on two physical devices — cannot be run from this repo/CI"
-    - "Step-0 existence check placed before any write/read test, per this phase's research finding that the live capability roster lists only downloads/mcp, not storage"
-    - "Decision scaffold committed with the outcome genuinely UNRESOLVED — never fabricated to unblock Phase 4 planning early"
+    - "Human-delegated decisions are recorded as provisional/human-revisable, not fabricated as a definitively-tested outcome — the decision doc states plainly that the spike was skipped, not run, and remains re-runnable if reopened"
+    - "A false structural/platform claim discovered mid-project is corrected at its source (PROJECT.md, CLAUDE.md) with the underlying requirement strengthened (policy + forbidden-tools list) rather than weakened"
 
 key-files:
-  created:
-    - spikes/artifact-storage-spike.md
+  created: []
+  modified:
     - project-knowledge/writable-state-decision.md
-  modified: []
+    - spikes/artifact-storage-spike.md
+    - .planning/PROJECT.md
+    - .claude/CLAUDE.md
 
 key-decisions:
-  - "Authored the storage-spike protocol and the go/no-go scaffold before stopping at the mandatory human checkpoint — no spike outcome fabricated, no writable-state binding decided by the agent."
-  - "household-ruleset.md and budget.md ⚠ FILL placeholders left exactly as they were (untouched) — the household's private allergy/dislike/brand/budget values were not invented."
+  - "Household delegated the writable-state decision (chose to proceed on the Rohlík-native path rather than run the two-device artifact-storage spike). Recorded as provisional/human-revisable, dated 2026-07-31, resolving FOUND-09."
+  - "Rationale for skipping the spike: the live MCP round-trip (01-02) already confirmed Rohlík-native favourites/order-history persist cross-device on the one shared account, independently answering the cross-device question; the artifact storage capability likely doesn't exist in the current runtime anyway."
+  - "household-ruleset.md and budget.md ⚠ FILL placeholders left untouched (not fabricated) — noted as a non-blocking must-fill-before-first-real-shop to-do in the decision doc and STATE.md."
+  - "Corrected PROJECT.md/CLAUDE.md's 'order submission not exposed via MCP — structurally guaranteed' claim to 'policy-enforced hard prohibition' across all instances (What This Is, Constraints/Platform, Out of Scope, STACK.md-derived table row, MCP discipline pattern 5), per plan 01-02's live-round-trip finding. The never-checks-out/never-pays requirement itself is preserved and strengthened (explicit policy + forbidden-tools list in mcp-degradation.md), not weakened."
 
 patterns-established:
-  - "Blocking-human checkpoints requiring a live external product surface (claude.ai on two physical devices) are never simulated or guessed at by the executor — the agent authors every artifact it can, then stops cleanly with an exact resume signal."
+  - "A decision delegated by the household (rather than resolved by running the planned spike) is recorded honestly as provisional and human-revisable — this keeps future re-derivation possible without treating the skip as a permanently closed question."
 
-requirements-completed: []
-# FOUND-09 is NOT complete yet — the plan is paused before Task 2 (human runs the spike) and
-# Task 3 (decision checkpoint) and Task 4 (record outcome + personalise config). Do not mark
-# FOUND-09 done until the human runs the spike, confirms the binding, and Task 4 transcribes it.
+requirements-completed: [FOUND-09]
 
-coverage: []
+coverage:
+  - id: D1
+    description: "writable-state-decision.md records a dated, provisional GO-on-Rohlík-native decision, resolving FOUND-09; artifact-storage-spike.md marked skipped/superseded, not fabricated as run"
+    requirement: "FOUND-09"
+    verification:
+      - kind: manual_procedural
+        ref: "grep -qi 'GO\\|NO-GO\\|INCOMPLETE' project-knowledge/writable-state-decision.md && grep -qi '2026-07-31' project-knowledge/writable-state-decision.md"
+        status: pass
+    human_judgment: false
+  - id: D2
+    description: "PROJECT.md and .claude/CLAUDE.md checkout-constraint language corrected from platform-structural to policy-enforced, with the never-checks-out/never-pays requirement preserved"
+    verification:
+      - kind: manual_procedural
+        ref: "grep -i 'not exposed\\|structurally guarantee\\|platform-enforced' .planning/PROJECT.md .claude/CLAUDE.md returns no matches"
+        status: pass
+    human_judgment: false
 
-duration: 4min
+duration: 12min
 completed: 2026-07-31
-status: paused
+status: complete
 ---
 
-# Phase 1 Plan 03: Artifact-Storage Spike & Household Personalisation (PAUSED at human checkpoint) Summary
+# Phase 1 Plan 03: Writable-State Decision (Delegated) & Checkout-Constraint Correction Summary
 
-**Authored the Step-0-first artifact-storage spike protocol and an unresolved GO/NO-GO/INCOMPLETE decision scaffold — plan is PAUSED awaiting the household to run the spike on two physical devices and provide their private ⚠ FILL values; no spike outcome or household data was fabricated.**
+**Recorded a provisional, human-delegated GO on Rohlík-native writable state (resolving FOUND-09), and corrected PROJECT.md/CLAUDE.md's false "checkout structurally not exposed" claim to a policy-enforced hard prohibition, per plan 01-02's live-round-trip finding.**
 
 ## Performance
 
-- **Duration:** ~4 min (agent-authorable portion only; the human checkpoint duration is unknown/unbounded)
-- **Started:** 2026-07-31T16:46:14Z
-- **Completed (this session):** 2026-07-31T16:50:00Z
-- **Tasks:** 1 of 4 completed (Task 1); Task 2 is the blocking-human checkpoint; Task 3 is a decision checkpoint gated on Task 2's outcome; Task 4 not yet runnable
-- **Files created:** 2
+- **Duration:** ~12 min
+- **Started:** 2026-07-31T19:26:03Z (continuing from the 01-03 pause)
+- **Completed:** 2026-07-31
+- **Tasks:** 2 (writable-state decision recording; checkout-constraint correction)
+- **Files modified:** 4
 
 ## Accomplishments
 
-- `spikes/artifact-storage-spike.md` — the human-executed protocol. Leads with **Step 0**: check
-  whether a storage-shaped capability exists at all (capability picker + `window.claude.storage` /
-  `window.storage` console check) before any write/read attempt, since this phase's research found
-  the live capability roster lists only `downloads` and `mcp`. If neither exists, the protocol
-  records NO-GO immediately and stops — a fast, valid, cheap outcome. Only if one exists: Step 1
-  (write a test key from Device A through the normal chat flow) and Step 2 (read it back from
-  Device B, second phone, same shared account, fresh session). Explicitly flags a single-device run
-  as **INCOMPLETE**, never NO-GO, because it cannot answer the cross-device question. States plainly
-  the spike is human-executed and not runnable from this repo/CI.
-- `project-knowledge/writable-state-decision.md` — a scaffold with the decision line left
-  **UNRESOLVED** (placeholder outcome/date/confirmed-by fields) and three fully-described outcome
-  branches to fill: GO (names the pool used, what Phase 4 binds to it), NO-GO (fixed fallback:
-  Rohlík-native favourites/order-history as primary + hand-edited Project-file diffs proposed by a
-  future `household-prefs` skill), and INCOMPLETE (defaults to the NO-GO fallback until re-run).
-  States this is a one-way gate for Phase 4 dependents.
+- **Resolved FOUND-09.** `project-knowledge/writable-state-decision.md` now records a dated
+  (2026-07-31), provisional, human-revisable decision: writable state for v1 rides on Rohlík-native
+  favourites (`Rohlik:get_all_user_favorites`) and order-history (`Rohlik:get_typical_order`) as the
+  primary signal, plus hand-edited Project-knowledge diffs for anything Rohlík can't model. Artifact
+  storage is explicitly **NOT used in v1**. The household delegated this decision rather than
+  running the two-device spike — the doc states this plainly, states the rationale (the 01-02 live
+  round-trip already answered the cross-device question independently; the artifact `storage`
+  capability likely doesn't exist in the current runtime), and states the decision is reversible if
+  a real writable artifact-store is confirmed later.
+- `spikes/artifact-storage-spike.md`'s Task 2 (the two-device human spike) is marked **SKIPPED —
+  superseded by a confirmed Rohlík-native writable-state path**, not fabricated as if it ran. The
+  protocol itself remains intact and re-runnable if the decision is revisited.
+- `household-ruleset.md` and `budget.md`'s `⚠ FILL BEFORE FIRST REAL SHOP` placeholders were left
+  **untouched** (no invented allergies/dislikes/brand-prefs/budget amounts) — noted as an
+  outstanding, non-blocking to-do in the decision doc and in STATE.md.
+- **Corrected the checkout-constraint claim** discovered inaccurate by plan 01-02's live MCP
+  round-trip. `PROJECT.md`'s "What This Is" intro, its "Out of Scope" bullet, and its
+  Constraints/Platform line, plus `.claude/CLAUDE.md`'s matching project-intro, Constraints/Platform
+  line, STACK.md-derived Rohlík-MCP table row, and MCP-discipline pattern-5 bullet, all previously
+  asserted checkout/order submission is "not exposed via MCP" and "structurally guarantees" the
+  never-checks-out requirement. All instances were rewritten to state the never-checks-out/never-pays
+  requirement is a **policy-enforced hard prohibition** — the assistant is instructed to never call
+  any checkout/order-submission/payment tool, per `project-knowledge/mcp-degradation.md`'s "Forbidden
+  tools" list — not a platform-structural guarantee, since the connected connector does in fact
+  expose those tools. The requirement itself is preserved and emphasized, not weakened.
 
 ## Task Commits
 
 Each task was committed atomically:
 
-1. **Task 1: Author the artifact-storage spike protocol and the go/no-go decision scaffold** - `4af1a17` (feat)
+1. **Checkout-constraint correction (PROJECT.md, .claude/CLAUDE.md)** - `7698814` (fix)
+2. **Writable-state decision recorded (writable-state-decision.md, artifact-storage-spike.md)** - `69d0a70` (feat)
 
-**Plan metadata:** (this commit, once made) — recorded PAUSED, not complete.
-
-Task 2 (`checkpoint:human-verify`, `gate="blocking-human"`) has NOT been executed — it requires a
-human, on two physical phones signed into the shared Claude account, running the storage spike, and
-separately providing the household's private ⚠ FILL values (allergies, dislikes/never-buy, brand
-preferences, budget soft/hard amounts). Neither can be produced or guessed at by the executor.
-
-Task 3 (`checkpoint:decision`, `gate="blocking"`) cannot run until Task 2 produces a real spike
-outcome — the decision's options are only meaningful once the spike result is known.
-
-Task 4 (record the dated go/no-go + personalise household-ruleset.md/budget.md) cannot start until
-Tasks 2 and 3 complete.
+**Plan metadata:** (this commit, once made) — records 01-03 COMPLETE.
 
 ## Files Created/Modified
 
-- `spikes/artifact-storage-spike.md` - Step-0-first cross-device storage-capability spike protocol
-- `project-knowledge/writable-state-decision.md` - unresolved GO/NO-GO/INCOMPLETE decision scaffold
-
-`project-knowledge/household-ruleset.md` and `project-knowledge/budget.md` were **read but not
-modified** — their ⚠ FILL placeholders (allergies, dislikes/never-buy, brand preferences, budget
-soft/hard amounts) remain exactly as authored in 01-01, per this plan's Task 4 (not yet run).
+- `project-knowledge/writable-state-decision.md` - resolved GO/NO-GO/INCOMPLETE scaffold into a dated, provisional, human-delegated decision
+- `spikes/artifact-storage-spike.md` - added a top-of-file status note marking the spike SKIPPED/superseded
+- `.planning/PROJECT.md` - corrected checkout-constraint claim (4 instances: intro, Out of Scope, Constraints/Platform)
+- `.claude/CLAUDE.md` - corrected matching checkout-constraint claim (4 instances: intro, Constraints/Platform, STACK table row, MCP-discipline pattern 5)
 
 ## Decisions Made
 
-- Placed the Step-0 existence check literally first in the protocol, ahead of any write/read
-  attempt, per 01-RESEARCH.md's finding that this session's own live capability roster lists only
-  `downloads`/`mcp` — treating a fast NO-GO from Step 0 as a valid, cheap, correct outcome rather
-  than an incomplete spike.
-- Left `writable-state-decision.md`'s outcome genuinely unresolved rather than pre-selecting a
-  "likely" branch — the plan's own must-haves require no GO without a recorded cross-device
-  read-back, so any agent-guessed outcome would violate that gate.
-- No architectural deviations. Plan executed exactly as written up to the mandatory checkpoint.
+- Recorded the writable-state outcome as **provisional and human-revisable**, per the executor's
+  brief — the household delegated rather than definitively closed the question, so the decision doc
+  explicitly avoids over-claiming a tested NO-GO on artifact storage; it states the spike was
+  skipped, not run, and remains re-runnable.
+- Chose not to fill `household-ruleset.md`/`budget.md`'s `⚠ FILL` placeholders in this plan — the
+  executor's brief explicitly left them untouched as the household's private data, tracked as a
+  non-blocking to-do rather than invented.
+- Corrected the checkout-constraint claim everywhere it appeared in both PROJECT.md and CLAUDE.md
+  (not just the single line flagged in the objective), since the same false "structurally
+  guaranteed" wording recurred in the "What This Is" intro, the "Out of Scope" bullet, and (in
+  CLAUDE.md) the STACK.md-derived table row and MCP-discipline pattern-5 bullet — leaving any one
+  uncorrected would have left a residual false claim in the same file.
 
 ## Deviations from Plan
 
-None - plan executed exactly as written for the one agent-authorable task. No auto-fixes, no Rule
-1-4 triggers.
+**1. [Rule 2 - missing critical fix] Corrected checkout-constraint language beyond the single line named in the objective**
+- **Found during:** the checkout-constraint correction task
+- **Issue:** the objective named "the Constraints/Platform lines" but the same false claim ("order
+  submission not exposed... structurally guarantees") also appeared in PROJECT.md's "What This Is"
+  intro and "Out of Scope" bullet, and in CLAUDE.md's matching intro plus the STACK.md-derived
+  Rohlík-MCP table row and MCP-discipline pattern-5 bullet.
+- **Fix:** corrected all instances in both files to consistently state the requirement is
+  policy-enforced, not platform-structural, cross-referencing `mcp-degradation.md`'s "Forbidden
+  tools" section.
+- **Files modified:** `.planning/PROJECT.md`, `.claude/CLAUDE.md`
+- **Verification:** `grep -i "not exposed\|structurally guarantee\|platform-enforced"` over both
+  files returns no matches.
+- **Committed in:** `7698814`
+
+---
+
+**Total deviations:** 1 auto-fixed (Rule 2 — missing critical, scope-consistent correction).
+**Impact on plan:** Necessary to avoid leaving a residual false claim in the same files being
+corrected; no scope creep beyond the two files the objective already named.
 
 ## Issues Encountered
 
-None. This is not a failure state — the checkpoint is the plan's intended, designed stopping point
-(D-08: the spike must be run on two physical devices signed into the shared account, and the
-household's private ⚠ FILL values can only come from the household itself; neither is producible
-from this repo/CI environment).
+None.
 
 ## User Setup Required
 
-**Yes — this IS the checkpoint.** The household must:
-
-1. **(A) Storage spike** — work through `spikes/artifact-storage-spike.md`: Step 0 first (does a
-   storage capability exist at all — check both the capability picker and `window.claude.storage` /
-   `window.storage`); if it doesn't, note "storage API missing" and stop (valid NO-GO). If it does,
-   write a test key from Device A, then read it back from Device B (second phone, same shared
-   account, fresh session), noting whether it returned and any delay. If only one device is
-   available, run same-device write/read and mark it INCOMPLETE.
-2. **(B) Personalise** — paste real values for the ⚠ FILL fields: allergies, dislikes/never-buy,
-   brand preferences (`household-ruleset.md` §A/§B), and soft/hard budget amounts in CZK
-   (`budget.md`); or reply "fill later" to defer to before the first real shop.
-3. Then, at Task 3, confirm which writable-state branch (GO / NO-GO / INCOMPLETE) Phase 4 binds
-   to — the option must be consistent with the Task 2 spike result (GO requires a recorded
-   cross-device read-back).
-
-**Resume signal:** paste (A) the storage-spike outcome — "storage API missing" / the cross-device
-read result / "one device only" — and (B) the ⚠ FILL values or "fill later"; then select the Task 3
-decision option once the spike outcome is known.
+None - no external service configuration required. The household's ⚠ FILL personalisation
+(allergies, dislikes, brand preferences, budget amounts) remains an outstanding, non-blocking
+to-do to complete before the first real shop — see `project-knowledge/writable-state-decision.md`
+and STATE.md's Open Gates / Todos.
 
 ## Next Phase Readiness
 
-- Not ready to advance past 01-03 — Tasks 2, 3, and 4 are blocked on the human spike, the
-  household's private values, and the resulting decision confirmation.
-- FOUND-09 stays open until Task 4 records a dated, spike-consistent outcome in
-  `writable-state-decision.md`.
-- Phase 4 (staples-restock, household-prefs, and any other learned-state skill) must NOT be planned
-  or built against artifact storage until this plan's decision resolves to GO with a documented
-  cross-device read-back.
-- Plan 01-02 (MCP round-trip) remains separately paused at its own blocking-human checkpoint; this
-  plan's pause is independent (01-03 depends only on 01-01, not 01-02) and does not block or get
-  blocked by 01-02's resolution.
+- **Phase 1 is now 3/3 plans complete.** FOUND-09 is resolved (provisional/human-revisable);
+  plan 01-02's checkout-exposure finding is now ratified in PROJECT.md/CLAUDE.md.
+- Phase 4 (staples-restock, household-prefs, any learned-state skill) must design against the
+  Rohlík-native + hand-edited-Project-file-diffs path recorded in `writable-state-decision.md`, not
+  against artifact storage.
+- Outstanding, non-blocking to-do carried forward: `household-ruleset.md`/`budget.md`'s ⚠ FILL
+  placeholders (allergies, dislikes/never-buy, brand preferences, budget soft/hard amounts) must be
+  filled with the household's real values before the first real shop.
+- Uploaded Project-Knowledge copies of `writable-state-decision.md` (and, once filled,
+  `household-ruleset.md`/`budget.md`) must be re-uploaded to claude.ai to take effect in live chats.
 
 ---
 *Phase: 01-foundation-shared-spine*
-*Completed (this session): 2026-07-31 — PAUSED at human checkpoint, not yet complete*
+*Completed: 2026-07-31*
 
 ## Self-Check: PASSED
 
-- FOUND: spikes/artifact-storage-spike.md
 - FOUND: project-knowledge/writable-state-decision.md
-- FOUND: .planning/phases/01-foundation-shared-spine/01-03-SUMMARY.md
-- FOUND commit: 4af1a17
+- FOUND: spikes/artifact-storage-spike.md
+- FOUND: .planning/PROJECT.md
+- FOUND: .claude/CLAUDE.md
+- FOUND commit: 7698814
+- FOUND commit: 69d0a70
+</content>
