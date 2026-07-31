@@ -2,9 +2,17 @@
 
 **Implements:** FOUND-09 · D-08 (artifact-storage spike acceptance)
 
-**Status:** ✅ RESOLVED (provisional, human-revisable) — 2026-07-31. The household delegated this
-decision (chose to proceed rather than run the two-device `spikes/artifact-storage-spike.md`
-cross-device spike). FOUND-09 is complete.
+**Status:** ✅ RESOLVED — 2026-07-31. The household RAN the two-device
+`spikes/artifact-storage-spike.md` and **artifact cross-device storage does NOT work** (could not
+confirm a cross-device read-back). This is now a **tested NO-GO on artifact storage**, not an
+assumption. Writable state rides on the confirmed-working Rohlík-native path. FOUND-09's go/no-go is
+determined.
+
+**⚠ OPEN — REVISIT BEFORE PHASE 4:** with artifact storage confirmed non-functional, household state
+that Rohlík cannot model (restock cadence, rejected-substitution history, explicit "we switched to
+brand X") has **no working writable store**. The interim is hand-edited Project-file diffs (below);
+a durable store for this is an unsolved question the household explicitly flagged to revisit before
+Phase 4 (staples-restock / household-prefs).
 
 **Outstanding, non-blocking to-do (unaffected by this decision):** `household-ruleset.md` §A/§B and
 `budget.md`'s `⚠ FILL BEFORE FIRST REAL SHOP` placeholders (allergies, dislikes/never-buy, brand
@@ -23,14 +31,15 @@ justification — see "Reversibility" below.
 
 ## Decision
 
-**Outcome:** **NO-GO on artifact storage (spike skipped, not run) / GO on Rohlík-native writable
-state.** Writable state for v1 = Rohlík-native (`Rohlik:get_all_user_favorites`,
+**Outcome:** **NO-GO on artifact storage (household-tested — does not work cross-device) / GO on
+Rohlík-native writable state.** Writable state for v1 = Rohlík-native (`Rohlik:get_all_user_favorites`,
 `Rohlik:get_typical_order`) as the primary signal, plus hand-edited Project-knowledge diffs for
 anything Rohlík can't model. Artifact storage is **NOT USED in v1**.
 **Date:** 2026-07-31
-**Confirmed by:** The household (delegated — chose to proceed on the Rohlík-native path rather
-than run the two-device spike)
-**Status of this outcome:** Provisional / human-revisable — see "Reversibility" below.
+**Confirmed by:** The household ran the two-device spike; artifact cross-device storage did not work
+(no confirmed cross-device read-back), 2026-07-31.
+**Status of this outcome:** Tested NO-GO on artifact storage; revisitable only if the runtime later
+gains a working storage capability — see "Reversibility" below.
 
 ### Rationale
 
@@ -40,10 +49,10 @@ than run the two-device spike)
   cross-device, since both phones sign into the same account. This independently answers the
   cross-device writable-state capability question FOUND-09 was created to settle, without needing
   the artifact-storage spike.
-- Phase-1 research found the artifact `storage` capability likely does not exist in the current
-  runtime — this session's own live artifact-capabilities contract lists only `downloads` and
-  `mcp`, no `storage` — so the two-device artifact-storage spike was **not run**; it would most
-  likely have returned NO-GO anyway (Step 0 would likely have found no storage-shaped capability).
+- Phase-1 research predicted the artifact `storage` capability likely does not exist (this session's
+  live artifact-capabilities contract listed only `downloads` and `mcp`, no `storage`). The
+  household's two-device spike (2026-07-31) **confirmed this empirically — artifact cross-device
+  storage does not work** — so the NO-GO is now tested, not assumed.
 - Therefore: writable state for v1 rides on Rohlík-native favourites + order history. Anything
   Rohlík cannot model (e.g. an explicit "we decided brand X" instruction, restock-cadence notes,
   rejected-substitution history) is handled by hand-edited Project Knowledge files (the ⚠ FILL
@@ -60,10 +69,9 @@ to a directly-tested GO or NO-GO.
 
 ### Spike disposition
 
-`spikes/artifact-storage-spike.md`'s Task 2 (the human-executed, two-device spike) is marked
-**resolved by decision (spike skipped — superseded by confirmed Rohlík-native path)** — it was
-never run, and no spike outcome is fabricated here or in that file. The protocol itself remains
-valid and re-runnable if this decision is revisited (see Reversibility above).
+`spikes/artifact-storage-spike.md`'s Task 2 (the human-executed, two-device spike) was **RUN by the
+household (2026-07-31) and returned NO-GO — artifact cross-device storage does not work.** The
+protocol remains valid and re-runnable if the runtime later changes (see Reversibility above).
 
 ### What Phase 4 binds to
 
@@ -98,9 +106,9 @@ valid and re-runnable if this decision is revisited (see Reversibility above).
 
 ## What NOT to do
 
-- Do not treat this decision as a definitive, tested NO-GO on artifact storage — it is a
-  provisional, human-delegated skip. Do not claim the spike was run, or fabricate a cross-device
-  read-back result, in this file or in `spikes/artifact-storage-spike.md`.
+- Artifact storage is a **tested NO-GO** (household ran the spike 2026-07-31; it does not work
+  cross-device). Do not design any v1 feature against artifact storage. If revisiting, re-run the
+  spike — do not assume the result flipped.
 - Do not design a Phase 4 skill against artifact storage on the strength of this decision — the
   bound path is Rohlík-native favourites/order-history + hand-edited Project-file diffs, per "What
   Phase 4 binds to" above.

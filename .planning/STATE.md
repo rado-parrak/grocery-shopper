@@ -86,6 +86,15 @@ progress:
   `mcp-degradation.md` (policy-enforced, not platform-enforced). **Awaiting household ratification**
   of corrected constraint language in PROJECT.md/CLAUDE.md.
 
+- **[Phase 1, FOUND-09, 2026-07-31] ⚠ REVISIT BEFORE PHASE 4 — writable state:** the household RAN
+  the two-device artifact-storage spike and it does **NOT work** (no confirmed cross-device
+  read-back) — a **tested NO-GO on artifact storage**. v1 writable state = Rohlík-native
+  (`get_all_user_favorites`/`get_typical_order`), which is confirmed working, so Phase 2 is
+  unaffected. OPEN: household state Rohlík can't model (restock cadence, rejected-substitution
+  history, explicit brand switches) has no working store; interim = hand-edited Project-file diffs.
+  This must be revisited before Phase 4 (staples-restock / household-prefs). See
+  `project-knowledge/writable-state-decision.md`.
+
 - **[Phase 1, 01-02, 2026-07-31] MCP tool surface grounded:** `mcp-degradation.md`'s Observed tool
   surface table is now populated from a real, dated live round-trip (search, cart_read, add,
   remove, forced error). Key findings: `Rohlik:` fully-qualified prefix; add uses `productId`
