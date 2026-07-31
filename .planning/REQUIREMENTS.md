@@ -21,51 +21,51 @@ Requirements for initial release. Each maps to a roadmap phase (see Traceability
 
 ### Resolution Cascade
 
-- [ ] **CASC-01**: An abstract item resolves to a concrete Rohlík product via ruleset → favourites → ask, in that order
-- [ ] **CASC-02**: Hard constraints (allergies, dislikes, "we don't buy X") remove candidates and are never proposed or substituted
-- [ ] **CASC-03**: Ruleset preferences (BIO, farm-sourced, brand, pack size) rank candidates by declared order
-- [ ] **CASC-04**: A favourite is used only if it satisfies every hard constraint — the ruleset always outranks a favourite
-- [ ] **CASC-05**: The user is asked only when ruleset and favourites both fail to produce a confident match
-- [ ] **CASC-06**: The system never asks a question the ruleset already answers (turn economy)
+- [x] **CASC-01**: An abstract item resolves to a concrete Rohlík product via ruleset → favourites → ask, in that order
+- [x] **CASC-02**: Hard constraints (allergies, dislikes, "we don't buy X") remove candidates and are never proposed or substituted
+- [x] **CASC-03**: Ruleset preferences (BIO, farm-sourced, brand, pack size) rank candidates by declared order
+- [x] **CASC-04**: A favourite is used only if it satisfies every hard constraint — the ruleset always outranks a favourite
+- [x] **CASC-05**: The user is asked only when ruleset and favourites both fail to produce a confident match
+- [x] **CASC-06**: The system never asks a question the ruleset already answers (turn economy)
 
 ### Confirmation & Mutation Safety
 
-- [ ] **CONF-01**: Every proposed shop is presented as an interactive artifact with per-item tickboxes and a quantity stepper
-- [ ] **CONF-02**: The confirmation artifact is a response collector only and never calls the MCP
-- [ ] **CONF-03**: The agent reads back the final list and verbally confirms before any basket write
-- [ ] **CONF-04**: No basket mutation occurs without explicit user approval
-- [ ] **CONF-05**: The cart is read before adding; items already present are not duplicated (idempotency)
+- [x] **CONF-01**: Every proposed shop is presented as an interactive artifact with per-item tickboxes and a quantity stepper
+- [x] **CONF-02**: The confirmation artifact is a response collector only and never calls the MCP
+- [x] **CONF-03**: The agent reads back the final list and verbally confirms before any basket write
+- [x] **CONF-04**: No basket mutation occurs without explicit user approval
+- [x] **CONF-05**: The cart is read before adding; items already present are not duplicated (idempotency)
 
 ### Budget
 
-- [ ] **BUDG-01**: A running basket total is shown on every confirmation
-- [ ] **BUDG-02**: Crossing the soft threshold produces a warning
-- [ ] **BUDG-03**: Additions that would exceed the hard cap are refused; the agent asks the user to cut items or raise the cap
+- [x] **BUDG-01**: A running basket total is shown on every confirmation
+- [x] **BUDG-02**: Crossing the soft threshold produces a warning
+- [x] **BUDG-03**: Additions that would exceed the hard cap are refused; the agent asks the user to cut items or raise the cap
 
 ### Substitution
 
-- [ ] **SUBS-01**: Out-of-stock / unavailable items are substituted per the ruleset, then approval is requested — never silently swapped
+- [x] **SUBS-01**: Out-of-stock / unavailable items are substituted per the ruleset, then approval is requested — never silently swapped
 
 ### Reliability & Degradation
 
-- [ ] **DEGR-01**: If the Rohlík MCP is unavailable or changed, the skill degrades to a plain shopping list the user can enter manually
-- [ ] **DEGR-02**: A basket add is never reported successful unless a cart read confirms it (no hallucinated success)
+- [x] **DEGR-01**: If the Rohlík MCP is unavailable or changed, the skill degrades to a plain shopping list the user can enter manually
+- [x] **DEGR-02**: A basket add is never reported successful unless a cart read confirms it (no hallucinated success)
 
 ### Auditability
 
-- [ ] **AUDT-01**: Every add reports what item, how many, what it cost, and which rule or favourite matched
+- [x] **AUDT-01**: Every add reports what item, how many, what it cost, and which rule or favourite matched
 
 ### Bilingual & Mobile UX
 
-- [ ] **UX-01**: Users can write requests in Czech and English interchangeably
-- [ ] **UX-02**: Product output is in Czech (matches the catalogue)
-- [ ] **UX-03**: Replies are short and phone-friendly — no wide tables, no walls of options; the confirmation is usable one-handed
+- [x] **UX-01**: Users can write requests in Czech and English interchangeably
+- [x] **UX-02**: Product output is in Czech (matches the catalogue)
+- [x] **UX-03**: Replies are short and phone-friendly — no wide tables, no walls of options; the confirmation is usable one-handed
 - [ ] **UX-04**: The common quick-add path completes in ≤3 turns
 
 ### Quick-Add
 
-- [ ] **QADD-01**: "add milk and bananas" triggers quick-add and resolves each item through the cascade
-- [ ] **QADD-02**: Quick-add pushes approved items to the shared Rohlík basket and returns the audit report
+- [x] **QADD-01**: "add milk and bananas" triggers quick-add and resolves each item through the cascade
+- [x] **QADD-02**: Quick-add pushes approved items to the shared Rohlík basket and returns the audit report
 
 ### Basket-Review
 
@@ -131,30 +131,30 @@ Each requirement maps to exactly one phase (granularity: coarse, 4 phases).
 | FOUND-07 | Phase 1 | Complete |
 | FOUND-08 | Phase 1 | Complete |
 | FOUND-09 | Phase 1 | Complete |
-| CASC-01 | Phase 2 | Pending |
-| CASC-02 | Phase 2 | Pending |
-| CASC-03 | Phase 2 | Pending |
-| CASC-04 | Phase 2 | Pending |
-| CASC-05 | Phase 2 | Pending |
-| CASC-06 | Phase 2 | Pending |
-| CONF-01 | Phase 2 | Pending |
-| CONF-02 | Phase 2 | Pending |
-| CONF-03 | Phase 2 | Pending |
-| CONF-04 | Phase 2 | Pending |
-| CONF-05 | Phase 2 | Pending |
-| BUDG-01 | Phase 2 | Pending |
-| BUDG-02 | Phase 2 | Pending |
-| BUDG-03 | Phase 2 | Pending |
-| SUBS-01 | Phase 2 | Pending |
-| DEGR-01 | Phase 2 | Pending |
-| DEGR-02 | Phase 2 | Pending |
-| AUDT-01 | Phase 2 | Pending |
-| UX-01 | Phase 2 | Pending |
-| UX-02 | Phase 2 | Pending |
-| UX-03 | Phase 2 | Pending |
+| CASC-01 | Phase 2 | Complete |
+| CASC-02 | Phase 2 | Complete |
+| CASC-03 | Phase 2 | Complete |
+| CASC-04 | Phase 2 | Complete |
+| CASC-05 | Phase 2 | Complete |
+| CASC-06 | Phase 2 | Complete |
+| CONF-01 | Phase 2 | Complete |
+| CONF-02 | Phase 2 | Complete |
+| CONF-03 | Phase 2 | Complete |
+| CONF-04 | Phase 2 | Complete |
+| CONF-05 | Phase 2 | Complete |
+| BUDG-01 | Phase 2 | Complete |
+| BUDG-02 | Phase 2 | Complete |
+| BUDG-03 | Phase 2 | Complete |
+| SUBS-01 | Phase 2 | Complete |
+| DEGR-01 | Phase 2 | Complete |
+| DEGR-02 | Phase 2 | Complete |
+| AUDT-01 | Phase 2 | Complete |
+| UX-01 | Phase 2 | Complete |
+| UX-02 | Phase 2 | Complete |
+| UX-03 | Phase 2 | Complete |
 | UX-04 | Phase 2 | Pending |
-| QADD-01 | Phase 2 | Pending |
-| QADD-02 | Phase 2 | Pending |
+| QADD-01 | Phase 2 | Complete |
+| QADD-02 | Phase 2 | Complete |
 | REVW-01 | Phase 2 | Pending |
 | REVW-02 | Phase 2 | Pending |
 | RCPE-01 | Phase 3 | Pending |
