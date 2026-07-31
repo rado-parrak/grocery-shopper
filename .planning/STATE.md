@@ -5,13 +5,13 @@ milestone_name: milestone
 current_phase: 2
 current_phase_name: Quick-Add & Basket-Review
 status: executing
-stopped_at: Completed 02-01-PLAN.md (quick-add SKILL.md + resolution-notes.md authored, all verify gates pass)
-last_updated: "2026-07-31T20:04:02.079Z"
+stopped_at: Completed 02-02-PLAN.md (basket-review SKILL.md authored, all verify gates pass)
+last_updated: "2026-07-31T20:10:12.362Z"
 progress:
   total_phases: 2
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State: Household Grocery Assistant (Rohlík)
@@ -26,9 +26,9 @@ progress:
 ## Current Position
 
 - **Phase:** 2 (Quick-Add & Basket-Review) — EXECUTING
-- **Plan:** 2 of 3
+- **Plan:** 3 of 3
 - **Status:** Ready to execute
-- **Progress:** [███████░░░] 67%
+- **Progress:** [████████░░] 83%
 
 ## Phase Map
 
@@ -54,6 +54,7 @@ progress:
 | Phase 01 P03 (partial — Task 1 only) | 4min | 1 task | 2 files |
 | Phase 01 P03 | 12min | 2 tasks | 4 files |
 | Phase 02 P01 | 15min | 3 tasks | 2 files |
+| Phase 02 P02 | 12min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -121,8 +122,8 @@ tracked but non-blocking for Phase 2+ planning.
 
 ## Session Continuity
 
-**Last session:** 2026-07-31T20:04:02.064Z
-**Stopped at:** Completed 02-01-PLAN.md (quick-add SKILL.md + resolution-notes.md authored, all verify gates pass)
+**Last session:** 2026-07-31T20:10:12.345Z
+**Stopped at:** Completed 02-02-PLAN.md (basket-review SKILL.md authored, all verify gates pass)
 **Resume file:** None
 
 - **Last action:** Recorded the provisional/human-revisable writable-state decision in `project-knowledge/writable-state-decision.md` (resolving FOUND-09), marked the two-device spike SKIPPED/superseded in `spikes/artifact-storage-spike.md`, and corrected the checkout-constraint claim from platform-structural to policy-enforced everywhere it appeared in `.planning/PROJECT.md` and `.claude/CLAUDE.md`. Plan 01-03 and Phase 1 (3/3 plans) marked COMPLETE (2026-07-31).
@@ -141,3 +142,5 @@ tracked but non-blocking for Phase 2+ planning.
 - [Phase ?]: [Phase 1, 01-03, 2026-07-31] Household delegated the writable-state decision (chose to proceed on Rohlik-native path rather than run the two-device artifact-storage spike). Recorded as provisional/human-revisable, dated 2026-07-31, resolving FOUND-09: writable state for v1 = Rohlik-native favourites/order-history + hand-edited Project-file diffs; artifact storage NOT used.
 - [Phase ?]: [Phase 1, 01-03, 2026-07-31] Ratified the checkout-exposure correction flagged in 01-02: PROJECT.md and .claude/CLAUDE.md's 'order submission not exposed via MCP -- structurally guaranteed' claim rewritten to 'policy-enforced hard prohibition' everywhere it appeared; the never-checks-out/never-pays requirement itself preserved and strengthened, not weakened.
 - [Phase ?]: [Phase 2, 02-01] Authored skills/quick-add/SKILL.md as a thin orchestrator + skills/quick-add/resolution-notes.md; tracer task verified end-to-end before expanding to multi-item/bilingual resolution and budget/substitution/degradation safety rails. No forbidden checkout/order/payment tool literal present.
+- [Phase ?]: Disjoint trigger vocabulary from quick-add: basket-review's description excludes add-item phrasing without literal 'add milk and bananas' collision, keeping the phase's negative-grep gate clean
+- [Phase ?]: Budget-threshold reporting in basket-review is read-only/non-blocking — this skill has no write path, so blocking at the hard cap remains quick-add's responsibility

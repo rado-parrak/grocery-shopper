@@ -55,10 +55,10 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
   4. Every add returns a Czech-product audit line — what item, how many, what it cost, and which rule or favourite matched — and out-of-stock items are proposed as ruleset-driven substitutions for approval, never swapped silently. [AUDT-01, UX-02, SUBS-01]
   5. Every confirmation shows a running basket total, warns on crossing the soft threshold, and refuses any add that would exceed the hard cap (asking the user to cut items or raise the cap); "what's in the basket" reads the live cart with its total and budget-threshold state, then hands off to manual checkout. [BUDG-01, BUDG-02, BUDG-03, REVW-01, REVW-02]
 
-**Plans**: 1/3 plans executed
+**Plans**: 2/3 plans executed
 
 - [x] 02-01-PLAN.md — quick-add SKILL.md: bilingual cascade → confirmation artifact → idempotent write → Czech audit, with budget/substitution/degradation safety rails [CASC-01..06, CONF-01..05, BUDG-01..03, SUBS-01, DEGR-01,02, AUDT-01, UX-01,02,03, QADD-01,02]
-- [ ] 02-02-PLAN.md — basket-review SKILL.md: live cart read + running total + budget-threshold state + manual-checkout handoff [REVW-01, REVW-02]
+- [x] 02-02-PLAN.md — basket-review SKILL.md: live cart read + running total + budget-threshold state + manual-checkout handoff [REVW-01, REVW-02]
 - [ ] 02-03-PLAN.md — trigger eval sets (cross-skill near-misses) + packaging README + human UAT (≤3-turn measurement) [UX-04]
 
 **UI hint**: yes
@@ -99,7 +99,7 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation & Shared Spine | 3/3 | Complete | 2026-07-31 |
-| 2. Quick-Add & Basket-Review | 1/3 | In Progress|  |
+| 2. Quick-Add & Basket-Review | 2/3 | In Progress|  |
 | 3. Recipe-to-Basket & Meal Planning | 0/? | Not started | - |
 | 4. Staples-Restock & Household Preferences | 0/? | Not started | - |
 

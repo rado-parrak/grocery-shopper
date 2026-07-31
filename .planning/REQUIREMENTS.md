@@ -69,8 +69,8 @@ Requirements for initial release. Each maps to a roadmap phase (see Traceability
 
 ### Basket-Review
 
-- [ ] **REVW-01**: "what's in the basket" reads the live cart and shows items with a running total
-- [ ] **REVW-02**: Basket-review reports budget-threshold state and hands off to manual checkout
+- [x] **REVW-01**: "what's in the basket" reads the live cart and shows items with a running total
+- [x] **REVW-02**: Basket-review reports budget-threshold state and hands off to manual checkout
 
 ### Staples-Restock
 
@@ -155,8 +155,8 @@ Each requirement maps to exactly one phase (granularity: coarse, 4 phases).
 | UX-04 | Phase 2 | Pending |
 | QADD-01 | Phase 2 | Complete |
 | QADD-02 | Phase 2 | Complete |
-| REVW-01 | Phase 2 | Pending |
-| REVW-02 | Phase 2 | Pending |
+| REVW-01 | Phase 2 | Complete |
+| REVW-02 | Phase 2 | Complete |
 | RCPE-01 | Phase 3 | Pending |
 | RCPE-02 | Phase 3 | Pending |
 | RCPE-03 | Phase 3 | Pending |
