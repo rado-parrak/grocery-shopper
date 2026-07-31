@@ -3,10 +3,27 @@
 **Implements:** FOUND-09 · D-08 (artifact-storage spike acceptance)
 
 **Status:** ✅ RESOLVED — 2026-07-31. The household RAN the two-device
-`spikes/artifact-storage-spike.md` and **artifact cross-device storage does NOT work** (could not
-confirm a cross-device read-back). This is now a **tested NO-GO on artifact storage**, not an
-assumption. Writable state rides on the confirmed-working Rohlík-native path. FOUND-09's go/no-go is
-determined.
+`spikes/artifact-storage-spike.md`. The `window.storage` capability **is present** and a same-device
+write+read-back succeeds, but the **cross-device read fails with a server-side error**
+(`Internal server error while processing action`), reproducibly — so **artifact cross-device storage
+does NOT work as tested**. This is a **tested NO-GO on artifact storage** (specifically the
+cross-device path), not an assumption. Writable state rides on the confirmed-working Rohlík-native
+path. FOUND-09's go/no-go is determined.
+
+---
+
+## Observed spike result — household, 2026-07-31 (verbatim)
+
+> **FOUND-09 · D-08 — Artifact storage cross-device spike**
+> **Result: NO-GO (observed live, 2026-07-31)**
+>
+> - **Step 0 (capability exists):** Pass. `window.storage` confirmed present (not `window.claude.storage`); `get`/`set`/`delete`/`list`, shared/personal pools via a `shared` boolean.
+> - **Step 1 (write, Device A, shared pool):** Pass. `window.storage.set("found09_spike_test", ..., true)` succeeded, confirmed by a successful same-device read-back afterward — the write genuinely persisted server-side, not just a locally-optimistic success.
+> - **Step 2 (read, Device B, same account, fresh session):** Fail. `window.storage.get("found09_spike_test", true)` returned `Storage get failed: Internal server error while processing action` — a server-side error, not an empty/absent result. Reproducible (failed on first attempt and again on retry) while the same key read successfully on Device A throughout.
+> - **Interpretation:** the failure mode is a hard error rather than delayed propagation, so this isn't a "wait longer and it'll show up" case as tested. Whether the underlying cause is that shared-pool storage isn't actually cross-device-synced, or a bug in the cross-device read path specifically, isn't determinable from the client side — recorded as observed, not diagnosed.
+> - **Consequence for FOUND-09/Phase 4:** learned-state write-back via artifact storage's shared pool is not viable as tested. Any future revisit needs to reproduce this NO-GO going away before being treated as GO — per the spike doc, no re-litigating this via a same-device test alone.
+>
+> Worth noting: this also quietly settles which direction Phase 4 should lean, if it revisits write-back at all — `seed-favourites.md` already flagged Rohlík-native favourites (confirmed present via `Rohlik:get_all_user_favorites` in the last spike) as durable and shared across the account with no new infrastructure. This result is a concrete reason to prefer that path over artifact storage, rather than just a convenience argument.
 
 **⚠ OPEN — REVISIT BEFORE PHASE 4:** with artifact storage confirmed non-functional, household state
 that Rohlík cannot model (restock cadence, rejected-substitution history, explicit "we switched to
@@ -49,10 +66,13 @@ gains a working storage capability — see "Reversibility" below.
   cross-device, since both phones sign into the same account. This independently answers the
   cross-device writable-state capability question FOUND-09 was created to settle, without needing
   the artifact-storage spike.
-- Phase-1 research predicted the artifact `storage` capability likely does not exist (this session's
-  live artifact-capabilities contract listed only `downloads` and `mcp`, no `storage`). The
-  household's two-device spike (2026-07-31) **confirmed this empirically — artifact cross-device
-  storage does not work** — so the NO-GO is now tested, not assumed.
+- Phase-1 research predicted the artifact `storage` capability might be absent. The household's
+  two-device spike (2026-07-31) found the opposite on *existence* — `window.storage` **is** present
+  (`get`/`set`/`delete`/`list`; shared/personal pools) and a same-device write+read-back succeeds —
+  but the **cross-device read fails with a reproducible server-side error**
+  (`Internal server error while processing action`) while the same key reads fine on the writing
+  device. So the NO-GO is specifically the cross-device propagation path, and it is **tested, not
+  assumed**. (See "Observed spike result" above for the step-by-step.)
 - Therefore: writable state for v1 rides on Rohlík-native favourites + order history. Anything
   Rohlík cannot model (e.g. an explicit "we decided brand X" instruction, restock-cadence notes,
   rejected-substitution history) is handled by hand-edited Project Knowledge files (the ⚠ FILL
@@ -89,9 +109,9 @@ protocol remains valid and re-runnable if the runtime later changes (see Reversi
 
 ## Cross-references
 
-- `spikes/artifact-storage-spike.md` — the storage-spike protocol; remains valid and re-runnable
-  but was not executed (see "Spike disposition" above and its own "Status (2026-07-31): SKIPPED"
-  note).
+- `spikes/artifact-storage-spike.md` — the storage-spike protocol; **executed by the household
+  2026-07-31 → NO-GO on the cross-device read** (Step 0/1 passed, Step 2 failed). Remains valid and
+  re-runnable if the runtime's storage behaviour changes.
 - `spikes/mcp-round-trip-results.md` and `project-knowledge/mcp-degradation.md` ("Observed tool
   surface") — the live, dated MCP round-trip that confirmed `get_all_user_favorites` and
   `get_typical_order` as the Rohlík-native writable-state signal this decision relies on.
