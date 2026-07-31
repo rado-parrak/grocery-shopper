@@ -2,90 +2,107 @@
 
 **Implements:** FOUND-09 · D-08 (artifact-storage spike acceptance)
 
-**Status:** ⏳ SCAFFOLD — UNRESOLVED. Awaiting the human-executed `spikes/artifact-storage-spike.md`
-run and the household's confirmed binding (checkpoint Task 3 of plan 01-03). Nothing below is a
-decision yet — it is the shape the decision will take once recorded.
+**Status:** ✅ RESOLVED (provisional, human-revisable) — 2026-07-31. The household delegated this
+decision (chose to proceed rather than run the two-device `spikes/artifact-storage-spike.md`
+cross-device spike). FOUND-09 is complete.
 
-**This is a one-way gate for Phase 4.** Whichever branch below gets dated and confirmed is what
-Phase 4's learned-state skills (staples cadence, curated recipe repertoire, rejected-substitution
-history, favourites write-back — LEARN-01 and neighbours) bind to. Switching stores later means
-migrating whatever persisted learned state already exists under the first choice — this is not a
-casually-revisitable setting.
+**Outstanding, non-blocking to-do (unaffected by this decision):** `household-ruleset.md` §A/§B and
+`budget.md`'s `⚠ FILL BEFORE FIRST REAL SHOP` placeholders (allergies, dislikes/never-buy, brand
+preferences, budget soft/hard amounts) remain unfilled — they were left untouched, not fabricated.
+They must be filled with the household's real values before the first real shop, but do not block
+this decision or FOUND-09's completion.
+
+**This is a one-way gate for Phase 4** in the sense that Phase 4's learned-state skills (staples
+cadence, curated recipe repertoire, rejected-substitution history, favourites write-back — LEARN-01
+and neighbours) bind to whatever is recorded below. It remains **provisional and human-revisable**:
+the household explicitly delegated rather than definitively closed the underlying artifact-storage
+question, so this decision can be revisited before Phase 4 without waiting for a one-way-door
+justification — see "Reversibility" below.
 
 ---
 
 ## Decision
 
-**Outcome:** *UNRESOLVED — GO / NO-GO / INCOMPLETE — HUMAN FILLS THIS*
-**Date:** *HUMAN FILLS THIS — YYYY-MM-DD*
-**Confirmed by:** *HUMAN FILLS THIS*
+**Outcome:** **NO-GO on artifact storage (spike skipped, not run) / GO on Rohlík-native writable
+state.** Writable state for v1 = Rohlík-native (`Rohlik:get_all_user_favorites`,
+`Rohlik:get_typical_order`) as the primary signal, plus hand-edited Project-knowledge diffs for
+anything Rohlík can't model. Artifact storage is **NOT USED in v1**.
+**Date:** 2026-07-31
+**Confirmed by:** The household (delegated — chose to proceed on the Rohlík-native path rather
+than run the two-device spike)
+**Status of this outcome:** Provisional / human-revisable — see "Reversibility" below.
 
-Fill in exactly ONE of the three branches below (delete or ignore the other two once resolved),
-based on the outcome actually recorded in `spikes/artifact-storage-spike.md`.
+### Rationale
 
----
+- The live MCP round-trip (2026-07-31, plan 01-02) confirmed `Rohlik:get_all_user_favorites` (28
+  items observed live) and `Rohlik:get_typical_order` (order-history-derived `frequent_items[]`)
+  already persist server-side on the single shared Rohlík account — and are therefore inherently
+  cross-device, since both phones sign into the same account. This independently answers the
+  cross-device writable-state capability question FOUND-09 was created to settle, without needing
+  the artifact-storage spike.
+- Phase-1 research found the artifact `storage` capability likely does not exist in the current
+  runtime — this session's own live artifact-capabilities contract lists only `downloads` and
+  `mcp`, no `storage` — so the two-device artifact-storage spike was **not run**; it would most
+  likely have returned NO-GO anyway (Step 0 would likely have found no storage-shaped capability).
+- Therefore: writable state for v1 rides on Rohlík-native favourites + order history. Anything
+  Rohlík cannot model (e.g. an explicit "we decided brand X" instruction, restock-cadence notes,
+  rejected-substitution history) is handled by hand-edited Project Knowledge files (the ⚠ FILL
+  fields and their successors), surfaced as diffs for the household to apply — **never
+  auto-written** by a skill at chat time.
 
-### Branch: GO — artifact storage becomes the Phase 4 learned-state home
+### Reversibility
 
-*Only valid if `artifact-storage-spike.md` recorded a real cross-device read-back — Step 0 found a
-storage API, Step 1's write succeeded, and Step 2 actually read the value back on the second
-device.*
+If a real artifact-storage (or other) writable store is confirmed later (e.g. the runtime's
+capability roster changes to include `storage`), Phase 4 learned-state can migrate to it. This
+decision is **provisional** and the household can revisit it before Phase 4 — re-running
+`spikes/artifact-storage-spike.md` in full is the way to upgrade this from "skipped, superseded"
+to a directly-tested GO or NO-GO.
 
-- **Pool used:** *HUMAN FILLS THIS — "shared" / "personal" / undifferentiated*
-- **Why this pool:** *HUMAN FILLS THIS*
-- **What Phase 4 binds to it:** staples-restock cadence, curated recipe repertoire notes,
-  rejected-substitution history, and any favourites write-back that needs to persist and be visible
-  from both phones.
-- **Known limits to carry forward:** unpublishing the artifact deletes all associated storage with
-  no republish-to-same-URL recovery — Phase 4 skills must not casually unpublish the artifact this
-  storage lives on.
+### Spike disposition
 
-### Branch: NO-GO — Rohlík-native + hand-edited Project files (fallback)
+`spikes/artifact-storage-spike.md`'s Task 2 (the human-executed, two-device spike) is marked
+**resolved by decision (spike skipped — superseded by confirmed Rohlík-native path)** — it was
+never run, and no spike outcome is fabricated here or in that file. The protocol itself remains
+valid and re-runnable if this decision is revisited (see Reversibility above).
 
-*Use this if Step 0 found no storage API at all, or the write never persisted, or it persisted but
-never read back correctly on the second device (or only after an unacceptable delay).*
+### What Phase 4 binds to
 
-- **Which step failed:** *HUMAN FILLS THIS*
-- **Fallback (fixed, not optional):** Rohlík-native favourites/order-history as the primary signal
-  for anything the retailer's own account data already models; hand-edited diffs to the read-only
+- **Primary:** Rohlík-native favourites (`Rohlik:get_all_user_favorites`) and order-history
+  (`Rohlik:get_typical_order`) as the steady-state signal for anything the retailer's own account
+  data already models.
+- **Secondary (fixed fallback for what Rohlík can't model):** hand-edited diffs to the read-only
   Project-knowledge files (proposed by a future `household-prefs` skill in Phase 4, applied by a
-  human) for anything Rohlík's data model can't hold (restock cadence, curated repertoire notes,
-  rejected-substitution history — none of these have a Rohlík-native field).
-- **What Phase 4 designs around instead:** no skill-writable, mid-conversation persistent store;
-  Phase 4 learned-state features degrade to this two-part fallback.
-
-### Branch: INCOMPLETE — defer, default to the NO-GO fallback until re-run
-
-*Use this if only one physical device was available, or the spike was interrupted before Step 2.*
-
-- **What was missing:** *HUMAN FILLS THIS*
-- **Default posture until re-run:** treat as NO-GO — Phase 4 must NOT be designed against artifact
-  storage on the strength of an incomplete (same-device-only) result. Use the NO-GO fallback above
-  in the meantime.
-- **Re-run trigger:** the moment a second physical device becomes available, re-run
-  `spikes/artifact-storage-spike.md` in full and update this decision.
+  human) for restock cadence, curated repertoire notes, rejected-substitution history — none of
+  these have a Rohlík-native field.
+- **Not used:** no skill-writable, mid-conversation artifact-storage API. Phase 4 learned-state
+  features must design around the two-part fallback above, not a live persistent store.
 
 ---
 
 ## Cross-references
 
-- `spikes/artifact-storage-spike.md` — the protocol that produces the raw observations this
-  decision transcribes.
+- `spikes/artifact-storage-spike.md` — the storage-spike protocol; remains valid and re-runnable
+  but was not executed (see "Spike disposition" above and its own "Status (2026-07-31): SKIPPED"
+  note).
+- `spikes/mcp-round-trip-results.md` and `project-knowledge/mcp-degradation.md` ("Observed tool
+  surface") — the live, dated MCP round-trip that confirmed `get_all_user_favorites` and
+  `get_typical_order` as the Rohlík-native writable-state signal this decision relies on.
 - `.planning/phases/01-foundation-shared-spine/01-RESEARCH.md` §"Artifact-Storage Spike Protocol"
-  and §"Open Questions" 1 — the grounding for why Step 0 exists and why GO requires a real
-  cross-device read-back, not an assumption.
+  and §"Open Questions" 1 — the grounding for why Step 0 exists and why a GO on artifact storage
+  would have required a real cross-device read-back, not an assumption.
 - `.planning/phases/01-foundation-shared-spine/01-CONTEXT.md` D-08 — the locked acceptance
   criteria this decision resolves.
 - Phase 4 (`staples-restock`, `household-prefs`, and any other learned-state skill) — the
-  consumers this decision binds; do not plan or build those skills against artifact storage before
-  this decision is resolved to GO with a dated, cross-device-confirmed result.
+  consumers this decision binds; design those skills against Rohlík-native favourites/order-history
+  + hand-edited Project-file diffs, not against artifact storage.
 
 ## What NOT to do
 
-- Do not mark GO without a recorded cross-device read-back actually observed on a second physical
-  device — a same-device write/read is INCOMPLETE, never GO, regardless of how well it worked.
-- Do not invent or guess at the outcome to unblock Phase 4 planning faster — an honest INCOMPLETE
-  with the safe NO-GO fallback is a correct, valid state to leave this file in until the spike is
-  actually re-run.
+- Do not treat this decision as a definitive, tested NO-GO on artifact storage — it is a
+  provisional, human-delegated skip. Do not claim the spike was run, or fabricate a cross-device
+  read-back result, in this file or in `spikes/artifact-storage-spike.md`.
+- Do not design a Phase 4 skill against artifact storage on the strength of this decision — the
+  bound path is Rohlík-native favourites/order-history + hand-edited Project-file diffs, per "What
+  Phase 4 binds to" above.
 - Do not let any skill write to this file at chat time — it is human/agent-authored in this repo,
   outside live chat sessions, same as every other Project-knowledge doc.

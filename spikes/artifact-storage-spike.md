@@ -2,6 +2,15 @@
 
 **Implements:** FOUND-09 · D-08 (artifact-storage spike acceptance)
 
+**Status (2026-07-31): SKIPPED — superseded by a confirmed Rohlík-native writable-state path.**
+The household delegated the writable-state decision rather than running this spike. Plan 01-02's
+live MCP round-trip confirmed `Rohlik:get_all_user_favorites` and `Rohlik:get_typical_order`
+already persist server-side on the one shared Rohlík account (inherently cross-device), which
+independently answers the cross-device writable-state question this spike exists to settle. See
+`project-knowledge/writable-state-decision.md` for the recorded, dated, provisional decision. This
+protocol remains valid and re-runnable — see that decision's "Re-run trigger" — but was not
+executed, and nothing below should be read as an executed result.
+
 **Who runs this:** A human, on the shared household Claude account, using **two physical devices**
 (both phones, both signed into the SAME shared account). **This step cannot be run from this
 repository or any CI process** — it requires a real claude.ai session on real hardware, with a
