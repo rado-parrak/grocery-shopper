@@ -21,11 +21,12 @@ section, which is the single source of truth for exactly what is off-limits; thi
 it rather than repeating the list here. Checkout and payment remain a manual step the household
 completes directly in the Rohlík app.
 
-## Happy path (single item, end to end)
+## Happy path (per item, extended to a multi-item request)
 
-1. **Resolve.** Load `household-ruleset.md` and `budget.md`, then resolve the named item by
-   following `resolution-cascade.md` in full — reference it by name; do not enumerate or
-   paraphrase its four steps here.
+1. **Resolve.** Load `household-ruleset.md` and `budget.md`, then resolve **each** named item —
+   the request is usually more than one item — by following `resolution-cascade.md` in full for
+   every item, independently — reference the cascade by name; do not enumerate or paraphrase its
+   four steps here.
 2. **Snapshot the cart.** Call `Rohlik:get_cart` to take a pre-write baseline before proposing
    anything to the household.
 3. **Build the confirmation artifact.** Follow `confirmation-protocol.md` exactly: one card, a
@@ -44,6 +45,37 @@ completes directly in the Rohlík app.
    that read-back plus an explicit check of `success` / `items_failed_to_add` — never from the
    write call's own return value (see `mcp-degradation.md`).
 7. **Audit.** Emit the one-line Czech audit per `audit-format.md`, then a running-total line.
+
+## Resolving multiple items: favourites, precedence, and when to ask
+
+At the cascade's favourites step (`resolution-cascade.md` step 3), consult the Rohlík-native
+favourites/order-history first — `Rohlik:get_all_user_favorites` and `Rohlik:get_typical_order` —
+with `seed-favourites.md` as the hand-curated supplement. Per CASC-04, a favourite is only ever a
+*candidate*: it is used solely if it also survives the cascade's hard-constraint and preference
+steps, and the ruleset (`household-ruleset.md` §A/§B) always outranks a favourite, never the other
+way round.
+
+Per CASC-05/CASC-06 and the ≤3-turn budget, ask the household only when the cascade genuinely
+cannot produce a confident match for an item after all three of hard constraints, preferences, and
+favourites have been tried. Batch every unresolved item from the current request into a single
+clarifying turn — never one question per item, and never ask about an item the ruleset already
+answered.
+
+## Bilingual & mobile
+
+Accept mixed Czech/English item input in the same request. Search the Czech catalogue regardless
+of the language the request was typed in. Render product names and audit lines in Czech, verbatim
+from the catalogue, per `audit-format.md`'s Language Rule — defer to that rule by name; do not
+restate it here, even when the user's own request was entirely in English.
+
+Keep every reply short and phone-first: single column, no wide tables, no walls of options, and one
+confirmation card for the whole batch — never one card per item (per `confirmation-protocol.md`).
+
+## Tool-name landmines and the turn map
+
+See `skills/quick-add/resolution-notes.md` for the `productId`/`product_id` naming landmine
+between add and remove, the 200-shaped `success:false` failure case, and this skill's ≤3-turn
+turn map — kept in a separate one-level-deep file so this body stays short.
 
 ## Never call
 
