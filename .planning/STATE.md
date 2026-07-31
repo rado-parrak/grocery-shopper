@@ -5,8 +5,8 @@ milestone_name: milestone
 current_phase: 1
 current_phase_name: Foundation & Shared Spine
 status: executing
-stopped_at: PAUSED at 01-02 Task 2 human-verify checkpoint (blocking-human) — awaiting live Rohlík MCP round-trip results
-last_updated: "2026-07-31T16:44:30.848Z"
+stopped_at: PAUSED at 01-02 Task 2 (blocking-human) and 01-03 Task 2 (blocking-human) checkpoints — awaiting live Rohlík MCP round-trip results and the two-device artifact-storage spike + household ⚠ FILL values
+last_updated: "2026-07-31T16:50:00.000Z"
 progress:
   total_phases: 1
   completed_phases: 0
@@ -26,8 +26,8 @@ progress:
 ## Current Position
 
 - **Phase:** 1 (Foundation & Shared Spine) — EXECUTING
-- **Plan:** 2 of 3
-- **Status:** PAUSED at blocking-human checkpoint (Task 2 — live Rohlík MCP round-trip)
+- **Plan:** 2 of 3 (01-02) and 3 of 3 (01-03), both paused
+- **Status:** PAUSED at two blocking-human checkpoints — 01-02 Task 2 (live Rohlík MCP round-trip) and 01-03 Task 2 (two-device artifact-storage spike + household ⚠ FILL values)
 - **Progress:** [███░░░░░░░] 33%
 
 ## Phase Map
@@ -50,6 +50,7 @@ progress:
 | Plan | Duration | Tasks | Files |
 |------|----------|-------|-------|
 | Phase 01 P01 | 15min | 3 tasks | 9 files |
+| Phase 01 P03 (partial — Task 1 only) | 4min | 1 task | 2 files |
 
 ## Accumulated Context
 
@@ -79,15 +80,16 @@ progress:
 ### Blockers
 
 - Plan 01-02 paused at blocking-human checkpoint: live Rohlík MCP round-trip (search -> cart_read -> add -> cart_read -> remove -> cart_read -> forced error -> favourites check) must be run by a human inside claude.ai with the OAuth connector attached; cannot be run from this repo/CI. Resume by pasting back the per-step observations.
+- Plan 01-03 paused at blocking-human checkpoint: (A) the artifact-storage cross-device spike (Step 0 existence check -> Device-A write -> Device-B read-back, or fast NO-GO if no storage capability exists) must be run by a human on two physical phones signed into the shared Claude account; (B) the household's private ⚠ FILL values (allergies, dislikes/never-buy, brand preferences, budget soft/hard amounts) must come from the household directly. Neither is producible from this repo/CI. Resume by pasting back (A) the spike outcome and (B) the ⚠ FILL values or "fill later", then confirming the Task 3 writable-state decision.
 
 ## Session Continuity
 
-**Last session:** 2026-07-31T16:44:30.831Z
-**Stopped at:** PAUSED at 01-02 Task 2 human-verify checkpoint (blocking-human) — awaiting live Rohlík MCP round-trip results
-**Resume file:** .planning/phases/01-foundation-shared-spine/01-02-PLAN.md
+**Last session:** 2026-07-31T16:50:00.000Z
+**Stopped at:** PAUSED at 01-02 Task 2 (blocking-human) and 01-03 Task 2 (blocking-human) checkpoints
+**Resume file:** .planning/phases/01-foundation-shared-spine/01-02-PLAN.md and .planning/phases/01-foundation-shared-spine/01-03-PLAN.md
 
-- **Last action:** Authored 01-02's setup checklist, MCP round-trip protocol, and empty results template; paused at the blocking-human checkpoint (2026-07-31).
-- **Next action:** Human runs `spikes/project-setup-checklist.md` + `spikes/mcp-round-trip-protocol.md` inside claude.ai and pastes back raw observations to resume 01-02 Task 3.
+- **Last action:** Authored 01-03's artifact-storage spike protocol (Step-0-first) and the unresolved writable-state-decision.md scaffold; paused at the blocking-human checkpoint (2026-07-31). household-ruleset.md/budget.md ⚠ FILL placeholders left untouched.
+- **Next action:** Human runs `spikes/project-setup-checklist.md` + `spikes/mcp-round-trip-protocol.md` (01-02) and `spikes/artifact-storage-spike.md` (01-03) inside claude.ai, and pastes back raw observations plus the household's ⚠ FILL values (or "fill later") to resume both plans.
 
 ---
 *State initialized: 2026-07-31*

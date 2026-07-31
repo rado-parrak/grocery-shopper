@@ -93,7 +93,7 @@ slice that proves the whole spine end-to-end: cascade → cart_read → confirma
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation & Shared Spine | 1/3 | Paused (human checkpoint — 01-02) |  |
+| 1. Foundation & Shared Spine | 1/3 | Paused (human checkpoints — 01-02, 01-03) |  |
 | 2. Quick-Add & Basket-Review | 0/? | Not started | - |
 | 3. Recipe-to-Basket & Meal Planning | 0/? | Not started | - |
 | 4. Staples-Restock & Household Preferences | 0/? | Not started | - |
